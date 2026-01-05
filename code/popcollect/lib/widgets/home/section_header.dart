@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+import '../../constants/sizes.dart';
+import '../../constants/fonts.dart';
+
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final String actionText;
+  final VoidCallback? onTap;
+
+  const SectionHeader({
+    super.key,
+    required this.title,
+    required this.actionText,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: kSectionHorizontalPadding,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: kSectionTitleText,
+          ),
+          GestureDetector(
+            onTap: onTap,
+            child: Text(
+              actionText,
+              style: kSectionActionText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
