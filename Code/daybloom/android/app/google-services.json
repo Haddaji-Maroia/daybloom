@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636180177274",
+    "project_id": "daybloom-c8fa9",
+    "storage_bucket": "daybloom-c8fa9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636180177274:android:3975cc38dc81ef803e76c3",
+        "android_client_info": {
+          "package_name": "be.hepl.daybloom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC40XbfICWMSCmeIla3VJ8i2VqgsTo5DDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
