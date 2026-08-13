@@ -1,3 +1,4 @@
+import 'package:daybloom/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'widgets/entry_card.dart';
 import 'constants/colors.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           seedColor: primaryColor,
         ),
       ),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
