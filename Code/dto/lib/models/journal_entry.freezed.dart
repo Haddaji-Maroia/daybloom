@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'team.dart';
+part of 'journal_entry.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,90 +13,89 @@ part of 'team.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$Team {
+mixin _$JournalEntry {
   @DocumentIdField()
   String get id;
   String get title;
-  @FirestoreTimestampConverter()
-  DateTime get startDate;
-  List<String> get users;
-  String? get picturePath;
+  String get content;
+  String get userId;
+  String? get photoUrl;
   List<String>? get tags;
+  DateTime get createdAt;
 
-  /// Create a copy of Team
+  /// Create a copy of JournalEntry
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $TeamCopyWith<Team> get copyWith =>
-      _$TeamCopyWithImpl<Team>(this as Team, _$identity);
+  $JournalEntryCopyWith<JournalEntry> get copyWith =>
+      _$JournalEntryCopyWithImpl<JournalEntry>(
+          this as JournalEntry, _$identity);
 
-  /// Serializes this Team to a JSON map.
+  /// Serializes this JournalEntry to a JSON map.
   Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Team &&
+            other is JournalEntry &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            const DeepCollectionEquality().equals(other.users, users) &&
-            (identical(other.picturePath, picturePath) ||
-                other.picturePath == picturePath) &&
-            const DeepCollectionEquality().equals(other.tags, tags));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.photoUrl, photoUrl) ||
+                other.photoUrl == photoUrl) &&
+            const DeepCollectionEquality().equals(other.tags, tags) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      startDate,
-      const DeepCollectionEquality().hash(users),
-      picturePath,
-      const DeepCollectionEquality().hash(tags));
+  int get hashCode => Object.hash(runtimeType, id, title, content, userId,
+      photoUrl, const DeepCollectionEquality().hash(tags), createdAt);
 
   @override
   String toString() {
-    return 'Team(id: $id, title: $title, startDate: $startDate, users: $users, picturePath: $picturePath, tags: $tags)';
+    return 'JournalEntry(id: $id, title: $title, content: $content, userId: $userId, photoUrl: $photoUrl, tags: $tags, createdAt: $createdAt)';
   }
 }
 
 /// @nodoc
-abstract mixin class $TeamCopyWith<$Res> {
-  factory $TeamCopyWith(Team value, $Res Function(Team) _then) =
-      _$TeamCopyWithImpl;
+abstract mixin class $JournalEntryCopyWith<$Res> {
+  factory $JournalEntryCopyWith(
+          JournalEntry value, $Res Function(JournalEntry) _then) =
+      _$JournalEntryCopyWithImpl;
   @useResult
   $Res call(
       {@DocumentIdField() String id,
       String title,
-      @FirestoreTimestampConverter() DateTime startDate,
-      List<String> users,
-      String? picturePath,
-      List<String>? tags});
+      String content,
+      String userId,
+      String? photoUrl,
+      List<String>? tags,
+      DateTime createdAt});
 }
 
 /// @nodoc
-class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
-  _$TeamCopyWithImpl(this._self, this._then);
+class _$JournalEntryCopyWithImpl<$Res> implements $JournalEntryCopyWith<$Res> {
+  _$JournalEntryCopyWithImpl(this._self, this._then);
 
-  final Team _self;
-  final $Res Function(Team) _then;
+  final JournalEntry _self;
+  final $Res Function(JournalEntry) _then;
 
-  /// Create a copy of Team
+  /// Create a copy of JournalEntry
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? startDate = null,
-    Object? users = null,
-    Object? picturePath = freezed,
+    Object? content = null,
+    Object? userId = null,
+    Object? photoUrl = freezed,
     Object? tags = freezed,
+    Object? createdAt = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -107,28 +106,32 @@ class _$TeamCopyWithImpl<$Res> implements $TeamCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _self.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      users: null == users
-          ? _self.users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      picturePath: freezed == picturePath
-          ? _self.picturePath
-          : picturePath // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _self.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoUrl: freezed == photoUrl
+          ? _self.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       tags: freezed == tags
           ? _self.tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
 
-/// Adds pattern-matching-related methods to [Team].
-extension TeamPatterns on Team {
+/// Adds pattern-matching-related methods to [JournalEntry].
+extension JournalEntryPatterns on JournalEntry {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -143,12 +146,12 @@ extension TeamPatterns on Team {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_Team value)? $default, {
+    TResult Function(_JournalEntry value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Team() when $default != null:
+      case _JournalEntry() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -170,11 +173,11 @@ extension TeamPatterns on Team {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_Team value) $default,
+    TResult Function(_JournalEntry value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _Team():
+      case _JournalEntry():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -195,11 +198,11 @@ extension TeamPatterns on Team {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_Team value)? $default,
+    TResult? Function(_JournalEntry value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _Team() when $default != null:
+      case _JournalEntry() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -223,18 +226,19 @@ extension TeamPatterns on Team {
     TResult Function(
             @DocumentIdField() String id,
             String title,
-            @FirestoreTimestampConverter() DateTime startDate,
-            List<String> users,
-            String? picturePath,
-            List<String>? tags)?
+            String content,
+            String userId,
+            String? photoUrl,
+            List<String>? tags,
+            DateTime createdAt)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _Team() when $default != null:
-        return $default(_that.id, _that.title, _that.startDate, _that.users,
-            _that.picturePath, _that.tags);
+      case _JournalEntry() when $default != null:
+        return $default(_that.id, _that.title, _that.content, _that.userId,
+            _that.photoUrl, _that.tags, _that.createdAt);
       case _:
         return orElse();
     }
@@ -258,17 +262,18 @@ extension TeamPatterns on Team {
     TResult Function(
             @DocumentIdField() String id,
             String title,
-            @FirestoreTimestampConverter() DateTime startDate,
-            List<String> users,
-            String? picturePath,
-            List<String>? tags)
+            String content,
+            String userId,
+            String? photoUrl,
+            List<String>? tags,
+            DateTime createdAt)
         $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _Team():
-        return $default(_that.id, _that.title, _that.startDate, _that.users,
-            _that.picturePath, _that.tags);
+      case _JournalEntry():
+        return $default(_that.id, _that.title, _that.content, _that.userId,
+            _that.photoUrl, _that.tags, _that.createdAt);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -291,17 +296,18 @@ extension TeamPatterns on Team {
     TResult? Function(
             @DocumentIdField() String id,
             String title,
-            @FirestoreTimestampConverter() DateTime startDate,
-            List<String> users,
-            String? picturePath,
-            List<String>? tags)?
+            String content,
+            String userId,
+            String? photoUrl,
+            List<String>? tags,
+            DateTime createdAt)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _Team() when $default != null:
-        return $default(_that.id, _that.title, _that.startDate, _that.users,
-            _that.picturePath, _that.tags);
+      case _JournalEntry() when $default != null:
+        return $default(_that.id, _that.title, _that.content, _that.userId,
+            _that.photoUrl, _that.tags, _that.createdAt);
       case _:
         return null;
     }
@@ -310,17 +316,18 @@ extension TeamPatterns on Team {
 
 /// @nodoc
 @JsonSerializable()
-class _Team implements Team {
-  const _Team(
+class _JournalEntry implements JournalEntry {
+  const _JournalEntry(
       {@DocumentIdField() required this.id,
       required this.title,
-      @FirestoreTimestampConverter() required this.startDate,
-      required final List<String> users,
-      this.picturePath,
-      final List<String>? tags})
-      : _users = users,
-        _tags = tags;
-  factory _Team.fromJson(Map<String, dynamic> json) => _$TeamFromJson(json);
+      required this.content,
+      required this.userId,
+      this.photoUrl,
+      final List<String>? tags,
+      required this.createdAt})
+      : _tags = tags;
+  factory _JournalEntry.fromJson(Map<String, dynamic> json) =>
+      _$JournalEntryFromJson(json);
 
   @override
   @DocumentIdField()
@@ -328,18 +335,11 @@ class _Team implements Team {
   @override
   final String title;
   @override
-  @FirestoreTimestampConverter()
-  final DateTime startDate;
-  final List<String> _users;
+  final String content;
   @override
-  List<String> get users {
-    if (_users is EqualUnmodifiableListView) return _users;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_users);
-  }
-
+  final String userId;
   @override
-  final String? picturePath;
+  final String? photoUrl;
   final List<String>? _tags;
   @override
   List<String>? get tags {
@@ -350,17 +350,20 @@ class _Team implements Team {
     return EqualUnmodifiableListView(value);
   }
 
-  /// Create a copy of Team
+  @override
+  final DateTime createdAt;
+
+  /// Create a copy of JournalEntry
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$TeamCopyWith<_Team> get copyWith =>
-      __$TeamCopyWithImpl<_Team>(this, _$identity);
+  _$JournalEntryCopyWith<_JournalEntry> get copyWith =>
+      __$JournalEntryCopyWithImpl<_JournalEntry>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$TeamToJson(
+    return _$JournalEntryToJson(
       this,
     );
   }
@@ -369,69 +372,69 @@ class _Team implements Team {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Team &&
+            other is _JournalEntry &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            const DeepCollectionEquality().equals(other._users, _users) &&
-            (identical(other.picturePath, picturePath) ||
-                other.picturePath == picturePath) &&
-            const DeepCollectionEquality().equals(other._tags, _tags));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.photoUrl, photoUrl) ||
+                other.photoUrl == photoUrl) &&
+            const DeepCollectionEquality().equals(other._tags, _tags) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      startDate,
-      const DeepCollectionEquality().hash(_users),
-      picturePath,
-      const DeepCollectionEquality().hash(_tags));
+  int get hashCode => Object.hash(runtimeType, id, title, content, userId,
+      photoUrl, const DeepCollectionEquality().hash(_tags), createdAt);
 
   @override
   String toString() {
-    return 'Team(id: $id, title: $title, startDate: $startDate, users: $users, picturePath: $picturePath, tags: $tags)';
+    return 'JournalEntry(id: $id, title: $title, content: $content, userId: $userId, photoUrl: $photoUrl, tags: $tags, createdAt: $createdAt)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$TeamCopyWith<$Res> implements $TeamCopyWith<$Res> {
-  factory _$TeamCopyWith(_Team value, $Res Function(_Team) _then) =
-      __$TeamCopyWithImpl;
+abstract mixin class _$JournalEntryCopyWith<$Res>
+    implements $JournalEntryCopyWith<$Res> {
+  factory _$JournalEntryCopyWith(
+          _JournalEntry value, $Res Function(_JournalEntry) _then) =
+      __$JournalEntryCopyWithImpl;
   @override
   @useResult
   $Res call(
       {@DocumentIdField() String id,
       String title,
-      @FirestoreTimestampConverter() DateTime startDate,
-      List<String> users,
-      String? picturePath,
-      List<String>? tags});
+      String content,
+      String userId,
+      String? photoUrl,
+      List<String>? tags,
+      DateTime createdAt});
 }
 
 /// @nodoc
-class __$TeamCopyWithImpl<$Res> implements _$TeamCopyWith<$Res> {
-  __$TeamCopyWithImpl(this._self, this._then);
+class __$JournalEntryCopyWithImpl<$Res>
+    implements _$JournalEntryCopyWith<$Res> {
+  __$JournalEntryCopyWithImpl(this._self, this._then);
 
-  final _Team _self;
-  final $Res Function(_Team) _then;
+  final _JournalEntry _self;
+  final $Res Function(_JournalEntry) _then;
 
-  /// Create a copy of Team
+  /// Create a copy of JournalEntry
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? startDate = null,
-    Object? users = null,
-    Object? picturePath = freezed,
+    Object? content = null,
+    Object? userId = null,
+    Object? photoUrl = freezed,
     Object? tags = freezed,
+    Object? createdAt = null,
   }) {
-    return _then(_Team(
+    return _then(_JournalEntry(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -440,22 +443,26 @@ class __$TeamCopyWithImpl<$Res> implements _$TeamCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _self.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      users: null == users
-          ? _self._users
-          : users // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      picturePath: freezed == picturePath
-          ? _self.picturePath
-          : picturePath // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _self.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _self.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoUrl: freezed == photoUrl
+          ? _self.photoUrl
+          : photoUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       tags: freezed == tags
           ? _self._tags
           : tags // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      createdAt: null == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }

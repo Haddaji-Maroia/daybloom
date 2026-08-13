@@ -14,11 +14,7 @@ part of 'schema.dart';
 /// Example: (_$UsersCollection, _$PostsCollection)
 final class _$UsersCollection {}
 
-final class _$TeamsCollection {}
-
-final class _$TransactionsCollection {}
-
-final class _$ConcernsCollection {}
+final class _$EntriesCollection {}
 
 /// Generated schema class - dummy class that only serves as type marker
 class AppSchema extends FirestoreSchema {
@@ -123,8 +119,9 @@ extension AppSchemaUserPatchBuilder on PatchBuilder<User> {
       );
 }
 
-/// Generated FilterSelector for `Team`
-extension AppSchemaTeamFilterSelectorExtension on FilterSelector<Team> {
+/// Generated FilterSelector for `JournalEntry`
+extension AppSchemaJournalEntryFilterSelectorExtension
+    on FilterSelector<JournalEntry> {
   /// Filter by document ID (id field)
   @pragma('vm:prefer-inline')
   DocumentIdFieldFilter get id => DocumentIdFieldFilter(
@@ -138,21 +135,21 @@ extension AppSchemaTeamFilterSelectorExtension on FilterSelector<Team> {
         parent: this,
       );
 
-  /// Filter by startDate
-  DateTimeFieldFilter get startDate => DateTimeFieldFilter(
-        name: 'startDate',
+  /// Filter by content
+  StringFieldFilter get content => StringFieldFilter(
+        name: 'content',
         parent: this,
       );
 
-  /// Filter by users
-  ArrayFieldFilter get users => ArrayFieldFilter(
-        name: 'users',
+  /// Filter by userId
+  StringFieldFilter get userId => StringFieldFilter(
+        name: 'userId',
         parent: this,
       );
 
-  /// Filter by picturePath
-  StringFieldFilter get picturePath => StringFieldFilter(
-        name: 'picturePath',
+  /// Filter by photoUrl
+  StringFieldFilter get photoUrl => StringFieldFilter(
+        name: 'photoUrl',
         parent: this,
       );
 
@@ -161,11 +158,17 @@ extension AppSchemaTeamFilterSelectorExtension on FilterSelector<Team> {
         name: 'tags',
         parent: this,
       );
+
+  /// Filter by createdAt
+  DateTimeFieldFilter get createdAt => DateTimeFieldFilter(
+        name: 'createdAt',
+        parent: this,
+      );
 }
 
-/// Generated OrderByFieldSelector for `Team`
-extension AppSchemaTeamOrderByFieldSelectorExtension
-    on OrderByFieldSelector<Team> {
+/// Generated OrderByFieldSelector for `JournalEntry`
+extension AppSchemaJournalEntryOrderByFieldSelectorExtension
+    on OrderByFieldSelector<JournalEntry> {
   /// Order by document ID (id field)
   OrderByField<String> get id => OrderByField(
         name: 'id',
@@ -179,21 +182,21 @@ extension AppSchemaTeamOrderByFieldSelectorExtension
         parent: this,
       );
 
-  /// Order by startDate
-  OrderByField<DateTime> get startDate => OrderByField(
-        name: 'startDate',
+  /// Order by content
+  OrderByField<String> get content => OrderByField(
+        name: 'content',
         parent: this,
       );
 
-  /// Order by users
-  OrderByField<List<String>> get users => OrderByField(
-        name: 'users',
+  /// Order by userId
+  OrderByField<String> get userId => OrderByField(
+        name: 'userId',
         parent: this,
       );
 
-  /// Order by picturePath
-  OrderByField<String?> get picturePath => OrderByField(
-        name: 'picturePath',
+  /// Order by photoUrl
+  OrderByField<String?> get photoUrl => OrderByField(
+        name: 'photoUrl',
         parent: this,
       );
 
@@ -202,13 +205,19 @@ extension AppSchemaTeamOrderByFieldSelectorExtension
         name: 'tags',
         parent: this,
       );
+
+  /// Order by createdAt
+  OrderByField<DateTime> get createdAt => OrderByField(
+        name: 'createdAt',
+        parent: this,
+      );
 }
 
-/// Generated AggregateFieldSelector for Team
-extension AppSchemaTeamAggregateFieldSelectorExtension
-    on AggregateFieldSelector<Team> {}
+/// Generated AggregateFieldSelector for JournalEntry
+extension AppSchemaJournalEntryAggregateFieldSelectorExtension
+    on AggregateFieldSelector<JournalEntry> {}
 
-extension AppSchemaTeamPatchBuilder on PatchBuilder<Team> {
+extension AppSchemaJournalEntryPatchBuilder on PatchBuilder<JournalEntry> {
   /// Update id field `String`
   @pragma('vm:prefer-inline')
   PatchBuilder<String> get id => PatchBuilder(
@@ -225,26 +234,26 @@ extension AppSchemaTeamPatchBuilder on PatchBuilder<Team> {
         converter: const PrimitiveConverter(),
       );
 
-  /// Update startDate field `DateTime`
+  /// Update content field `String`
   @pragma('vm:prefer-inline')
-  DateTimeFieldUpdate<DateTime> get startDate => DateTimeFieldUpdate(
-        name: 'startDate',
+  PatchBuilder<String> get content => PatchBuilder(
+        name: 'content',
         parent: this,
+        converter: const PrimitiveConverter(),
       );
 
-  /// Update users field `List<String>`
+  /// Update userId field `String`
   @pragma('vm:prefer-inline')
-  ListFieldUpdate<List<String>, String> get users => ListFieldUpdate(
-        name: 'users',
+  PatchBuilder<String> get userId => PatchBuilder(
+        name: 'userId',
         parent: this,
-        converter: /* {} */ ListConverter<String>(const PrimitiveConverter()),
-        elementConverter: const PrimitiveConverter(),
+        converter: const PrimitiveConverter(),
       );
 
-  /// Update picturePath field `String?`
+  /// Update photoUrl field `String?`
   @pragma('vm:prefer-inline')
-  PatchBuilder<String?> get picturePath => PatchBuilder(
-        name: 'picturePath',
+  PatchBuilder<String?> get photoUrl => PatchBuilder(
+        name: 'photoUrl',
         parent: this,
         converter: NullableConverter(const PrimitiveConverter()),
       );
@@ -258,6 +267,13 @@ extension AppSchemaTeamPatchBuilder on PatchBuilder<Team> {
             /* {} */ ListConverter<String>(const PrimitiveConverter())),
         elementConverter: const PrimitiveConverter(),
       );
+
+  /// Update createdAt field `DateTime`
+  @pragma('vm:prefer-inline')
+  DateTimeFieldUpdate<DateTime> get createdAt => DateTimeFieldUpdate(
+        name: 'createdAt',
+        parent: this,
+      );
 }
 
 /// Generated FilterSelector for `List<E>`
@@ -267,127 +283,6 @@ extension AppSchemaListFilterSelectorExtension<E> on FilterSelector<List<E>> {}
 extension AppSchemaListOrderByFieldSelectorExtension<E>
     on OrderByFieldSelector<List<E>> {}
 
-/// Generated FilterSelector for `MyTransaction`
-extension AppSchemaMyTransactionFilterSelectorExtension
-    on FilterSelector<MyTransaction> {
-  /// Filter by document ID (id field)
-  @pragma('vm:prefer-inline')
-  DocumentIdFieldFilter get id => DocumentIdFieldFilter(
-        name: 'id',
-        parent: this,
-      );
-
-  /// Filter by title
-  StringFieldFilter get title => StringFieldFilter(
-        name: 'title',
-        parent: this,
-      );
-
-  /// Filter by amount
-  NumericFieldFilter get amount => NumericFieldFilter(
-        name: 'amount',
-        parent: this,
-      );
-
-  /// Filter by date
-  DateTimeFieldFilter get date => DateTimeFieldFilter(
-        name: 'date',
-        parent: this,
-      );
-
-  /// Filter by description
-  StringFieldFilter get description => StringFieldFilter(
-        name: 'description',
-        parent: this,
-      );
-}
-
-/// Generated OrderByFieldSelector for `MyTransaction`
-extension AppSchemaMyTransactionOrderByFieldSelectorExtension
-    on OrderByFieldSelector<MyTransaction> {
-  /// Order by document ID (id field)
-  OrderByField<String> get id => OrderByField(
-        name: 'id',
-        parent: this,
-        type: FieldPathType.documentId,
-      );
-
-  /// Order by title
-  OrderByField<String> get title => OrderByField(
-        name: 'title',
-        parent: this,
-      );
-
-  /// Order by amount
-  OrderByField<double> get amount => OrderByField(
-        name: 'amount',
-        parent: this,
-      );
-
-  /// Order by date
-  OrderByField<DateTime> get date => OrderByField(
-        name: 'date',
-        parent: this,
-      );
-
-  /// Order by description
-  OrderByField<String?> get description => OrderByField(
-        name: 'description',
-        parent: this,
-      );
-}
-
-/// Generated AggregateFieldSelector for MyTransaction
-extension AppSchemaMyTransactionAggregateFieldSelectorExtension
-    on AggregateFieldSelector<MyTransaction> {
-  /// amount field for aggregation
-  AggregateField<double> get amount => AggregateField(
-        name: 'amount',
-        parent: this,
-      );
-}
-
-extension AppSchemaMyTransactionPatchBuilder on PatchBuilder<MyTransaction> {
-  /// Update id field `String`
-  @pragma('vm:prefer-inline')
-  PatchBuilder<String> get id => PatchBuilder(
-        name: 'id',
-        parent: this,
-        converter: const PrimitiveConverter(),
-      );
-
-  /// Update title field `String`
-  @pragma('vm:prefer-inline')
-  PatchBuilder<String> get title => PatchBuilder(
-        name: 'title',
-        parent: this,
-        converter: const PrimitiveConverter(),
-      );
-
-  /// Update amount field `double`
-  @pragma('vm:prefer-inline')
-  NumericFieldUpdate<double> get amount => NumericFieldUpdate(
-        name: 'amount',
-        parent: this,
-        converter: const PrimitiveConverter(),
-      );
-
-  /// Update date field `DateTime`
-  @pragma('vm:prefer-inline')
-  DateTimeFieldUpdate<DateTime> get date => DateTimeFieldUpdate(
-        name: 'date',
-        parent: this,
-      );
-
-  /// Update description field `String?`
-  @pragma('vm:prefer-inline')
-  PatchBuilder<String?> get description => PatchBuilder(
-        name: 'description',
-        parent: this,
-        converter: NullableConverter(const PrimitiveConverter()),
-      );
-}
-
 /// Class to add collections to `FirestoreODM<AppSchema>`
 extension AppSchemaODM on FirestoreODM<AppSchema> {
   /// Access users collection
@@ -396,15 +291,6 @@ extension AppSchemaODM on FirestoreODM<AppSchema> {
       FirestoreCollection<AppSchema, User, (_$UsersCollection,)>(
         query: firestore.collection('users'),
         converter: const _$UserJsonConverter(),
-        documentIdField: 'id',
-      );
-
-  /// Access teams collection
-  @pragma('vm:prefer-inline')
-  FirestoreCollection<AppSchema, Team, (_$TeamsCollection,)> get teams =>
-      FirestoreCollection<AppSchema, Team, (_$TeamsCollection,)>(
-        query: firestore.collection('teams'),
-        converter: const _$TeamJsonConverter(),
         documentIdField: 'id',
       );
 }
@@ -420,86 +306,36 @@ extension $AppSchemaTransactionContext on TransactionContext<AppSchema> {
         converter: const _$UserJsonConverter(),
         documentIdField: 'id',
       );
-
-  /// Access teams collection
-  @pragma('vm:prefer-inline')
-  TransactionCollection<AppSchema, Team, (_$TeamsCollection,)> get teams =>
-      TransactionCollection<AppSchema, Team, (_$TeamsCollection,)>(
-        query: ref.collection('teams'),
-        context: this,
-        converter: const _$TeamJsonConverter(),
-        documentIdField: 'id',
-      );
 }
 
-/// Transaction document class for teams collection
-extension $AppSchemaTeamsTransactionDocument
-    on TransactionDocument<AppSchema, Team, (_$TeamsCollection,)> {
-  /// Access transactions subcollection
+/// Transaction document class for users collection
+extension $AppSchemaUsersTransactionDocument
+    on TransactionDocument<AppSchema, User, (_$UsersCollection,)> {
+  /// Access entries subcollection
   @pragma('vm:prefer-inline')
-  TransactionCollection<AppSchema, MyTransaction,
-          (_$TeamsCollection, _$TransactionsCollection)>
-      get transactions => TransactionCollection<AppSchema, MyTransaction,
-              (_$TeamsCollection, _$TransactionsCollection)>(
-            query: ref.collection('transactions'),
+  TransactionCollection<AppSchema, JournalEntry,
+          (_$UsersCollection, _$EntriesCollection)>
+      get entries => TransactionCollection<AppSchema, JournalEntry,
+              (_$UsersCollection, _$EntriesCollection)>(
+            query: ref.collection('entries'),
             context: context,
-            converter: const _$MyTransactionJsonConverter(),
+            converter: const _$JournalEntryJsonConverter(),
             documentIdField: 'id',
           );
 }
 
-/// Transaction document class for teams/*/transactions collection
-extension $AppSchemaTeamsTransactionsTransactionDocument on TransactionDocument<
-    AppSchema, MyTransaction, (_$TeamsCollection, _$TransactionsCollection)> {
-  /// Access concerns subcollection
-  @pragma('vm:prefer-inline')
-  TransactionCollection<
-      AppSchema,
-      User,
-      (
-        _$TeamsCollection,
-        _$TransactionsCollection,
-        _$ConcernsCollection
-      )> get concerns => TransactionCollection<AppSchema, User,
-          (_$TeamsCollection, _$TransactionsCollection, _$ConcernsCollection)>(
-        query: ref.collection('concerns'),
-        context: context,
-        converter: const _$UserJsonConverter(),
-        documentIdField: 'id',
-      );
-}
-
-/// Document class for teams collection
-extension $AppSchemaTeamsDocument
-    on FirestoreDocument<AppSchema, Team, (_$TeamsCollection,)> {
-  /// Access transactions subcollection
-  FirestoreCollection<AppSchema, MyTransaction,
-          (_$TeamsCollection, _$TransactionsCollection)>
-      get transactions => FirestoreCollection<AppSchema, MyTransaction,
-              (_$TeamsCollection, _$TransactionsCollection)>(
-            query: ref.collection('transactions'),
-            converter: const _$MyTransactionJsonConverter(),
+/// Document class for users collection
+extension $AppSchemaUsersDocument
+    on FirestoreDocument<AppSchema, User, (_$UsersCollection,)> {
+  /// Access entries subcollection
+  FirestoreCollection<AppSchema, JournalEntry,
+          (_$UsersCollection, _$EntriesCollection)>
+      get entries => FirestoreCollection<AppSchema, JournalEntry,
+              (_$UsersCollection, _$EntriesCollection)>(
+            query: ref.collection('entries'),
+            converter: const _$JournalEntryJsonConverter(),
             documentIdField: 'id',
           );
-}
-
-/// Document class for teams/*/transactions collection
-extension $AppSchemaTeamsTransactionsDocument on FirestoreDocument<AppSchema,
-    MyTransaction, (_$TeamsCollection, _$TransactionsCollection)> {
-  /// Access concerns subcollection
-  FirestoreCollection<
-      AppSchema,
-      User,
-      (
-        _$TeamsCollection,
-        _$TransactionsCollection,
-        _$ConcernsCollection
-      )> get concerns => FirestoreCollection<AppSchema, User,
-          (_$TeamsCollection, _$TransactionsCollection, _$ConcernsCollection)>(
-        query: ref.collection('concerns'),
-        converter: const _$UserJsonConverter(),
-        documentIdField: 'id',
-      );
 }
 
 /// Extension to add collections to BatchContext<AppSchema>
@@ -512,58 +348,21 @@ extension AppSchemaBatchContextExtensions on BatchContext<AppSchema> {
         documentIdField: 'id',
         context: this,
       );
-
-  /// Access teams collection
-  BatchCollection<AppSchema, Team, (_$TeamsCollection,)> get teams =>
-      BatchCollection(
-        collection: firestoreInstance.collection('teams'),
-        converter: const _$TeamJsonConverter(),
-        documentIdField: 'id',
-        context: this,
-      );
 }
 
-/// Batch document class for teams collection
-extension $AppSchemaTeamsBatchDocument
-    on BatchDocument<AppSchema, Team, (_$TeamsCollection,)> {
-  /// Access transactions subcollection
+/// Batch document class for users collection
+extension $AppSchemaUsersBatchDocument
+    on BatchDocument<AppSchema, User, (_$UsersCollection,)> {
+  /// Access entries subcollection
   @pragma('vm:prefer-inline')
-  BatchCollection<AppSchema, MyTransaction,
-          (_$TeamsCollection, _$TransactionsCollection)>
-      get transactions => getBatchCollection(
+  BatchCollection<AppSchema, JournalEntry,
+          (_$UsersCollection, _$EntriesCollection)>
+      get entries => getBatchCollection(
             parent: this,
-            name: 'transactions',
-            converter: const _$MyTransactionJsonConverter(),
+            name: 'entries',
+            converter: const _$JournalEntryJsonConverter(),
             documentIdField: 'id',
           );
-}
-
-/// Batch document class for teams/*/transactions collection
-extension $AppSchemaTeamsTransactionsBatchDocument on BatchDocument<AppSchema,
-    MyTransaction, (_$TeamsCollection, _$TransactionsCollection)> {
-  /// Access concerns subcollection
-  @pragma('vm:prefer-inline')
-  BatchCollection<AppSchema, User,
-          (_$TeamsCollection, _$TransactionsCollection, _$ConcernsCollection)>
-      get concerns => getBatchCollection(
-            parent: this,
-            name: 'concerns',
-            converter: const _$UserJsonConverter(),
-            documentIdField: 'id',
-          );
-}
-
-//Generated converter for `FirestoreTimestampConverter`
-class _$FirestoreTimestampConverterAnnotationConverter
-    implements FirestoreConverter<DateTime, Object?> {
-  const _$FirestoreTimestampConverterAnnotationConverter();
-
-  @override
-  DateTime fromJson(Object? data) =>
-      FirestoreTimestampConverter().fromJson(data);
-
-  @override
-  Object? toJson(DateTime value) => FirestoreTimestampConverter().toJson(value);
 }
 
 //Generated converter for `User`
@@ -578,27 +377,15 @@ class _$UserJsonConverter
   Map<String, dynamic> toJson(User value) => value.toJson();
 }
 
-//Generated converter for `Team`
-class _$TeamJsonConverter
-    implements FirestoreConverter<Team, Map<String, dynamic>> {
-  const _$TeamJsonConverter();
+//Generated converter for `JournalEntry`
+class _$JournalEntryJsonConverter
+    implements FirestoreConverter<JournalEntry, Map<String, dynamic>> {
+  const _$JournalEntryJsonConverter();
 
   @override
-  Team fromJson(Map<String, dynamic> data) => Team.fromJson(data);
+  JournalEntry fromJson(Map<String, dynamic> data) =>
+      JournalEntry.fromJson(data);
 
   @override
-  Map<String, dynamic> toJson(Team value) => value.toJson();
-}
-
-//Generated converter for `MyTransaction`
-class _$MyTransactionJsonConverter
-    implements FirestoreConverter<MyTransaction, Map<String, dynamic>> {
-  const _$MyTransactionJsonConverter();
-
-  @override
-  MyTransaction fromJson(Map<String, dynamic> data) =>
-      MyTransaction.fromJson(data);
-
-  @override
-  Map<String, dynamic> toJson(MyTransaction value) => value.toJson();
+  Map<String, dynamic> toJson(JournalEntry value) => value.toJson();
 }
