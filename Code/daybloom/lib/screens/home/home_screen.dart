@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_odm/firestore_odm.dart';
+import 'package:dto/dto.dart';
+import '../entry/add_entry_screen.dart';
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
-import '../../widgets/entry_card.dart';
-
+import '../entry/entry_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,9 +18,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -29,16 +35,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Welcome Yuna',
-                    style: TextStyle(
+                  Text(
+                    'Welcome ${user.displayName ?? 'back'}',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: fontSizeLarge,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Text(
-                    'Tuesday 5 July',
+                    'Today',
                     style: TextStyle(
                       color: Colors.white70,
                       fontSize: fontSizeSmall,
@@ -94,25 +100,59 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(spacingSmall),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: buttonColor),
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: buttonColor,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const AddEntryScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(spacingSmall),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: buttonColor),
+                            ),
+                            child: const Icon(Icons.add, color: buttonColor),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: spacingSmall),
-                    const EntryCard(title: 'Football game !', date: '20:35 • July 2, 2026'),
-                    const EntryCard(title: 'Morning July', date: '11:00 • July 1, 2026'),
-                    const EntryCard(title: 'A weird day...', date: '18:35 • Jun 27, 2026'),
-                    const EntryCard(title: 'Date with Mum', date: '17:24 • June 20, 2026'),
-                    const EntryCard(title: 'First day of summer', date: '09:00 • June 15, 2026'),
+                    Expanded(
+                      child: StreamBuilder<List<JournalEntry>>(
+                        stream: db.users(user.uid).entries.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(color: Colors.white),
+                            );
+                          }
+                          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text(
+                                'No entries yet. Start writing!',
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                            );
+                          }
+                          final entries = snapshot.data!;
+                          return ListView.builder(
+                            itemCount: entries.length > 5 ? 5 : entries.length,
+                            itemBuilder: (context, index) {
+                              final entry = entries[index];
+                              return EntryCard(
+                                title: entry.title,
+                                date: '${entry.createdAt.day}/${entry.createdAt.month}/${entry.createdAt.year} • ${entry.createdAt.hour}:${entry.createdAt.minute.toString().padLeft(2, '0')}',
+                                entry: entry,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -123,9 +163,18 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddEntryScreen(),
+              ),
+            );
+          } else {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
         },
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,

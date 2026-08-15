@@ -217,7 +217,7 @@ packages:
     source: hosted
     version: "2.24.1"
   firestore_odm:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firestore_odm
       sha256: "1f97fdf6df6d91408ee722d74cb1dcf2dcecf9e77ee23d4b03d42ff82ca28b8b"

@@ -10,3 +10,5 @@ const double spacingXLarge = 60;
 const double spacingXXLarge = 32;
 const double buttonHeight = 52;
 
+const double photoHeight = 200;
+
