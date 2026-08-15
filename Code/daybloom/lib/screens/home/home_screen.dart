@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return EntryCard(
                                 title: entry.title,
                                 date: '${entry.createdAt.day}/${entry.createdAt.month}/${entry.createdAt.year} • ${entry.createdAt.hour}:${entry.createdAt.minute.toString().padLeft(2, '0')}',
-                                entry: entry,
+                                entryId: entry.id,
                               );
                             },
                           );

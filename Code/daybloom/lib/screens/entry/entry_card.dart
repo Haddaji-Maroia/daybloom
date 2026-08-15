@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:dto/dto.dart';
-
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
 import 'entry_detail_screen.dart';
 
-
 class EntryCard extends StatelessWidget {
   final String title;
   final String date;
-  final JournalEntry entry;
+  final String entryId;
 
   const EntryCard({
     super.key,
     required this.title,
     required this.date,
-    required this.entry,
+    required this.entryId,
   });
 
   @override
@@ -26,7 +23,7 @@ class EntryCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EntryDetailScreen(entry: entry),
+            builder: (context) => EntryDetailScreen(entryId: entryId),
           ),
         );
       },
