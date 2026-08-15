@@ -4,4 +4,9 @@ const double paddingSmall = 12;
 const double spacingSmall = 8;
 const double spacingLarge = 20;
 const double borderRadius = 12;
+const double borderRadiusPill = 30;
+
+const double spacingXLarge = 60;
+const double spacingXXLarge = 32;
+const double buttonHeight = 52;
 
