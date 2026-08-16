@@ -1,12 +1,11 @@
+import 'package:daybloom/screens/entries/widgets/entry_app_bar.dart';
+import 'package:daybloom/screens/entries/widgets/entry_content.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dto/dto.dart';
 import '../../constants/colors.dart';
-import '../../constants/fonts.dart';
 import '../../constants/size.dart';
-import '../../utils/date_formatter.dart';
-import 'add_entry_screen.dart';
 
 class EntryDetailScreen extends StatefulWidget {
   final String entryId;
@@ -43,39 +42,12 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(paddingSmall),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.white),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddEntryScreen(entry: entry),
-                                ),
-                              );
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.white),
-                            onPressed: () async {
-                              await db.users(user.uid).entries(widget.entryId).delete();
-                              _handleDelete();
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                EntryAppBar(
+                  entry: entry,
+                  onDelete: () async {
+                    await db.users(user.uid).entries(widget.entryId).delete();
+                    _handleDelete();
+                  },
                 ),
                 if (entry.photoUrl != null)
                   Container(
@@ -90,40 +62,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                       ),
                     ),
                   ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(paddingMedium),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          entry.title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSizeLarge,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: spacingSmall),
-                        Text(
-                          formatEntryDate(entry.createdAt),
-                          style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: fontSizeSmall,
-                          ),
-                        ),
-                        const SizedBox(height: spacingLarge),
-                        Text(
-                          entry.content,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSizeMedium,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                EntryContent(entry: entry),
               ],
             );
           },

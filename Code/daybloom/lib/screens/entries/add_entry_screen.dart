@@ -1,3 +1,4 @@
+import 'package:daybloom/screens/entries/widgets/entry_form_header.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -69,27 +70,10 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  ElevatedButton(
-                    onPressed: _isSaving ? null : _saveEntry,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: buttonColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(borderRadiusPill),
-                      ),
-                    ),
-                    child: Text(
-                      widget.entry == null ? 'Save' : 'Update',
-                      style: const TextStyle(color: primaryColor),
-                    ),
-                  ),
-                ],
+              EntryFormHeader(
+                isSaving: _isSaving,
+                isEditing: widget.entry != null,
+                onSave: _saveEntry,
               ),
               const SizedBox(height: spacingLarge),
               TextField(
