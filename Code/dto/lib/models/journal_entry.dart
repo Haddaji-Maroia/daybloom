@@ -1,5 +1,6 @@
 import 'package:firestore_odm/firestore_odm.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dto/converters/firestore_timestamp_converter.dart';
 
 part 'journal_entry.freezed.dart';
 part 'journal_entry.g.dart';
@@ -13,6 +14,7 @@ abstract class JournalEntry with _$JournalEntry {
     required String userId,
     String? photoUrl,
     List<String>? tags,
+    @FirestoreTimestampConverter()
     required DateTime createdAt,
   }) = _JournalEntry;
 

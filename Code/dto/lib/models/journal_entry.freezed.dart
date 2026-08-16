@@ -21,6 +21,7 @@ mixin _$JournalEntry {
   String get userId;
   String? get photoUrl;
   List<String>? get tags;
+  @FirestoreTimestampConverter()
   DateTime get createdAt;
 
   /// Create a copy of JournalEntry
@@ -74,7 +75,7 @@ abstract mixin class $JournalEntryCopyWith<$Res> {
       String userId,
       String? photoUrl,
       List<String>? tags,
-      DateTime createdAt});
+      @FirestoreTimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc
@@ -230,7 +231,7 @@ extension JournalEntryPatterns on JournalEntry {
             String userId,
             String? photoUrl,
             List<String>? tags,
-            DateTime createdAt)?
+            @FirestoreTimestampConverter() DateTime createdAt)?
         $default, {
     required TResult orElse(),
   }) {
@@ -266,7 +267,7 @@ extension JournalEntryPatterns on JournalEntry {
             String userId,
             String? photoUrl,
             List<String>? tags,
-            DateTime createdAt)
+            @FirestoreTimestampConverter() DateTime createdAt)
         $default,
   ) {
     final _that = this;
@@ -300,7 +301,7 @@ extension JournalEntryPatterns on JournalEntry {
             String userId,
             String? photoUrl,
             List<String>? tags,
-            DateTime createdAt)?
+            @FirestoreTimestampConverter() DateTime createdAt)?
         $default,
   ) {
     final _that = this;
@@ -324,7 +325,7 @@ class _JournalEntry implements JournalEntry {
       required this.userId,
       this.photoUrl,
       final List<String>? tags,
-      required this.createdAt})
+      @FirestoreTimestampConverter() required this.createdAt})
       : _tags = tags;
   factory _JournalEntry.fromJson(Map<String, dynamic> json) =>
       _$JournalEntryFromJson(json);
@@ -351,6 +352,7 @@ class _JournalEntry implements JournalEntry {
   }
 
   @override
+  @FirestoreTimestampConverter()
   final DateTime createdAt;
 
   /// Create a copy of JournalEntry
@@ -410,7 +412,7 @@ abstract mixin class _$JournalEntryCopyWith<$Res>
       String userId,
       String? photoUrl,
       List<String>? tags,
-      DateTime createdAt});
+      @FirestoreTimestampConverter() DateTime createdAt});
 }
 
 /// @nodoc

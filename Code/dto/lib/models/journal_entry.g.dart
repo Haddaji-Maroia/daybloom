@@ -14,7 +14,8 @@ _JournalEntry _$JournalEntryFromJson(Map<String, dynamic> json) =>
       userId: json['userId'] as String,
       photoUrl: json['photoUrl'] as String?,
       tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt:
+          const FirestoreTimestampConverter().fromJson(json['createdAt']),
     );
 
 const _$JournalEntryFieldMap = <String, String>{
@@ -42,7 +43,8 @@ abstract class _$JournalEntryPerFieldToJson {
   // ignore: unused_element
   static Object? tags(List<String>? instance) => instance;
   // ignore: unused_element
-  static Object? createdAt(DateTime instance) => instance.toIso8601String();
+  static Object? createdAt(DateTime instance) =>
+      const FirestoreTimestampConverter().toJson(instance);
 }
 
 Map<String, dynamic> _$JournalEntryToJson(_JournalEntry instance) =>
@@ -53,5 +55,6 @@ Map<String, dynamic> _$JournalEntryToJson(_JournalEntry instance) =>
       'userId': instance.userId,
       'photoUrl': instance.photoUrl,
       'tags': instance.tags,
-      'createdAt': instance.createdAt.toIso8601String(),
+      'createdAt':
+          const FirestoreTimestampConverter().toJson(instance.createdAt),
     };
