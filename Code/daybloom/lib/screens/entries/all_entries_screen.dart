@@ -6,17 +6,12 @@ import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
 
+import '../../utils/date_formatter.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import 'entry_card.dart';
 
-class AllEntriesScreen extends StatefulWidget {
+class AllEntriesScreen extends StatelessWidget {
   const AllEntriesScreen({super.key});
-
-  @override
-  State<AllEntriesScreen> createState() => _AllEntriesScreenState();
-}
-
-class _AllEntriesScreenState extends State<AllEntriesScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +59,7 @@ class _AllEntriesScreenState extends State<AllEntriesScreen> {
                         final entry = entries[index];
                         return EntryCard(
                           title: entry.title,
-                          date: '${entry.createdAt.day}/${entry.createdAt.month}/${entry.createdAt.year} • ${entry.createdAt.hour}:${entry.createdAt.minute.toString().padLeft(2, '0')}',
+                          date: formatEntryDate(entry.createdAt),
                           entryId: entry.id,
                         );
                       },

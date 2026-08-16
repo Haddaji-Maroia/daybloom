@@ -5,6 +5,7 @@ import 'package:dto/dto.dart';
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
+import '../../utils/date_formatter.dart';
 import 'add_entry_screen.dart';
 
 class EntryDetailScreen extends StatefulWidget {
@@ -105,7 +106,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                         ),
                         const SizedBox(height: spacingSmall),
                         Text(
-                          '${entry.createdAt.day}/${entry.createdAt.month}/${entry.createdAt.year} • ${entry.createdAt.hour}:${entry.createdAt.minute.toString().padLeft(2, '0')}',
+                          formatEntryDate(entry.createdAt),
                           style: const TextStyle(
                             color: Colors.white70,
                             fontSize: fontSizeSmall,

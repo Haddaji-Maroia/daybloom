@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dto/dto.dart';
-import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
+import '../../../utils/date_formatter.dart';
 import '../../../widgets/add_button.dart';
 import '../../entries/add_entry_screen.dart';
 import '../../entries/entry_card.dart';
@@ -68,7 +68,7 @@ class RecentEntries extends StatelessWidget {
                   final entry = entries[index];
                   return EntryCard(
                     title: entry.title,
-                    date: '${entry.createdAt.day}/${entry.createdAt.month}/${entry.createdAt.year} • ${entry.createdAt.hour}:${entry.createdAt.minute.toString().padLeft(2, '0')}',
+                    date: formatEntryDate(entry.createdAt),
                     entryId: entry.id,
                   );
                 },

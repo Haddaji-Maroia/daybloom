@@ -12,3 +12,5 @@ const double buttonHeight = 52;
 
 const double photoHeight = 200;
 
+const double borderWidth = 5;
+

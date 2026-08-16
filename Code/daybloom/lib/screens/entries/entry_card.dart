@@ -35,8 +35,8 @@ class EntryCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
           border: const Border(
             left: BorderSide(
-              color: Color(0xFFB0C3FB),
-              width: 5,
+              color: cardBorderColor,
+              width: borderWidth,
             ),
           ),
         ),
