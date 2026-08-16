@@ -1,4 +1,5 @@
 import 'package:firestore_odm/firestore_odm.dart';
+import 'converters/firestore_timestamp_converter.dart';
 import 'models/user.dart';
 import 'models/journal_entry.dart';
 
