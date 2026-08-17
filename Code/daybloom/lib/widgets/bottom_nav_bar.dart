@@ -3,6 +3,7 @@ import '../constants/colors.dart';
 import '../screens/entry/add_entry_screen.dart';
 import '../screens/entries/all_entries_screen.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/profile/profile_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -30,7 +31,12 @@ class BottomNavBar extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const AddEntryScreen()),
           );
-        }
+        } else if (index == 4) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
+    }
       },
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.grey,

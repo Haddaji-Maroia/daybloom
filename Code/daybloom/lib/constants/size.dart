@@ -14,3 +14,6 @@ const double photoHeight = 200;
 
 const double borderWidth = 5;
 
+const double avatarRadius = 30;
+const double avatarIconSize = 30;
+
