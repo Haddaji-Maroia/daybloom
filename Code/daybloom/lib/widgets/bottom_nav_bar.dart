@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../screens/entries/add_entry_screen.dart';
+import '../screens/entry/add_entry_screen.dart';
 import '../screens/entries/all_entries_screen.dart';
 import '../screens/home/home_screen.dart';
 

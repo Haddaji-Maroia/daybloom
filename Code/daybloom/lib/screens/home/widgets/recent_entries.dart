@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
 import '../../../widgets/add_button.dart';
-import '../../entries/add_entry_screen.dart';
+import '../../entry/add_entry_screen.dart';
 import '../../entries/widgets/entries_list.dart';
 
 class RecentEntries extends StatelessWidget {
