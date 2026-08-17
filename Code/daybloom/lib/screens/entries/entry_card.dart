@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
-import 'entry_detail_screen.dart';
+import '../entry/entry_detail_screen.dart';
 
 class EntryCard extends StatelessWidget {
   final String title;
