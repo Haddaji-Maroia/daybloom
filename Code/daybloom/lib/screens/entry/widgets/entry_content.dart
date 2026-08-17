@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:dto/dto.dart';
 import '../../../constants/fonts.dart';
@@ -33,6 +35,17 @@ class EntryContent extends StatelessWidget {
                 fontSize: fontSizeSmall,
               ),
             ),
+            const SizedBox(height: spacingLarge),
+            if (entry.photoUrl != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(borderRadius),
+                child: Image.file(
+                  File(entry.photoUrl!),
+                  width: double.infinity,
+                  height: photoHeight,
+                  fit: BoxFit.cover,
+                ),
+              ),
             const SizedBox(height: spacingLarge),
             Text(
               entry.content,

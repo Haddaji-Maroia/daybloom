@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dto/dto.dart';
 import '../../constants/colors.dart';
-import '../../constants/size.dart';
 
 class EntryDetailScreen extends StatefulWidget {
   final String entryId;
@@ -49,19 +48,6 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                     _handleDelete();
                   },
                 ),
-                if (entry.photoUrl != null)
-                  Container(
-                    width: double.infinity,
-                    height: photoHeight,
-                    margin: const EdgeInsets.symmetric(horizontal: paddingMedium),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(borderRadius),
-                      image: DecorationImage(
-                        image: NetworkImage(entry.photoUrl!),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
                 EntryContent(entry: entry),
               ],
             );

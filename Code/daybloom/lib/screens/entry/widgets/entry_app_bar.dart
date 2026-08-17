@@ -1,7 +1,7 @@
 import 'package:daybloom/constants/size.dart';
 import 'package:flutter/material.dart';
 import 'package:dto/dto.dart';
-import '../add_entry_screen.dart';
+import '../edit_entry_screen.dart';
 
 class EntryAppBar extends StatelessWidget {
   final JournalEntry entry;
@@ -32,7 +32,7 @@ class EntryAppBar extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddEntryScreen(entry: entry),
+                      builder: (context) => EditEntryScreen(entry: entry),
                     ),
                   );
                 },

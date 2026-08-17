@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
+import '../../../services/notification_service.dart';
 
 class NotificationToggle extends StatefulWidget {
   const NotificationToggle({super.key});
@@ -12,11 +13,15 @@ class NotificationToggle extends StatefulWidget {
 }
 
 class _NotificationToggleState extends State<NotificationToggle> {
+  final NotificationService _notifService = NotificationService();
+
+// Stato attuale del toggle — true se le notifiche sono attive
   bool _notificationsEnabled = false;
 
   @override
   void initState() {
     super.initState();
+    _notifService.initNotification();
     _loadNotifState();
   }
 
@@ -31,6 +36,14 @@ class _NotificationToggleState extends State<NotificationToggle> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('notifications_enabled', value);
     setState(() => _notificationsEnabled = value);
+    if (value) {
+      await _notifService.scheduleNotification(
+        title: 'Daybloom',
+        body: 'Time to write in your journal!',
+      );
+    } else {
+      await _notifService.cancelNotification();
+    }
   }
 
   @override
