@@ -10,7 +10,8 @@ class ProfileInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return const SizedBox();
     final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
 
     return Column(

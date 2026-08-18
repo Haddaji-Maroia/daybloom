@@ -11,6 +11,7 @@ import 'widgets/entry_form_header.dart';
 
 class AddEntryScreen extends StatefulWidget {
   const AddEntryScreen({super.key});
+  static const String routeName = "/add_entry";
 
   @override
   State<AddEntryScreen> createState() => _AddEntryScreenState();

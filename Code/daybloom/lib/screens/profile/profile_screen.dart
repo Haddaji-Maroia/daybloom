@@ -7,9 +7,11 @@ import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
 import '../../widgets/bottom_nav_bar.dart';
+import '../login/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+  static const String routeName = "/profile";
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,18 @@ class ProfileScreen extends StatelessWidget {
               const Divider(color: Colors.white24),
               const SizedBox(height: spacingLarge),
               const NotificationToggle(),
-              const Spacer(),
+              const SizedBox(height: spacingLarge),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
                     await FirebaseAuth.instance.signOut();
+                    if (!context.mounted) return;
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      LoginScreen.routeName,
+                          (route) => false,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white24,
@@ -52,6 +60,7 @@ class ProfileScreen extends StatelessWidget {
                   child: const Text(
                     'Sign out',
                     style: TextStyle(color: Colors.white),
+
                   ),
                 ),
               ),

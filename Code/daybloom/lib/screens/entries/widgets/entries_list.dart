@@ -13,7 +13,8 @@ class EntriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return const SizedBox();
 
     return StreamBuilder<List<JournalEntry>>(
       stream: db.users(user.uid).entries.stream,

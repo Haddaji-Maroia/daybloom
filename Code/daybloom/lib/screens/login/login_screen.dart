@@ -1,14 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
+import '../home/home_screen.dart';
 import '../register/register_screen.dart';
+import '../../widgets/form/email_input.dart';
+import '../../widgets/form/password_input.dart';
+import '../../widgets/form/auth_link.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+  static const String routeName = "/login";
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -18,19 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String? _errorMessage;
-
-  Future<void> _login() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        _errorMessage = e.message;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: spacingXLarge),
-
-                // Titolo
                 const Text(
                   'Welcome back',
                   style: TextStyle(
@@ -54,79 +42,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-
                 const SizedBox(height: spacingXXLarge),
-
-                // Campo Email
-                const Text(
-                  'Email',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: fontSizeXSmall,
-                  ),
-                ),
-                const SizedBox(height: spacingSmall),
-                TextField(
-                  controller: _emailController,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: 'yunamizaki@gmail.com',
-                    hintStyle: const TextStyle(
-                      color: Colors.white54,
-                      fontSize: fontSizeSmall,
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: paddingMedium,
-                      vertical: paddingSmall,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadiusPill),
-                      borderSide: const BorderSide(color: inputBorderColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadiusPill),
-                      borderSide: const BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
-
+                EmailInput(emailController: _emailController),
                 const SizedBox(height: spacingLarge),
-
-                // Campo Password
-                const Text(
-                  'Password',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: fontSizeXSmall,
-                  ),
-                ),
-                const SizedBox(height: spacingSmall),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  style: const TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: 'Enter your password',
-                    hintStyle: const TextStyle(
-                      color: Colors.white54,
-                      fontSize: fontSizeSmall,
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: paddingMedium,
-                      vertical: paddingSmall,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadiusPill),
-                      borderSide: const BorderSide(color: inputBorderColor),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(borderRadiusPill),
-                      borderSide: const BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
-
-                // Forgot password
+                PasswordInput(passwordController: _passwordController),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -141,24 +60,48 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
                 if (_errorMessage != null)
                   Padding(
-                    padding: const EdgeInsets.only(bottom: paddingSmall),
+                    padding: const EdgeInsets.only(top: spacingSmall),
                     child: Text(
                       _errorMessage!,
                       style: const TextStyle(color: Colors.redAccent),
                     ),
                   ),
-
                 const SizedBox(height: spacingLarge),
-
-                // Bottone Sign in
                 SizedBox(
                   width: double.infinity,
                   height: buttonHeight,
                   child: ElevatedButton(
-                    onPressed: _login,
+                    onPressed: () async {
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                        if (!context.mounted) return;
+                        Navigator.pushNamed(context, HomeScreen.routeName);
+                      } on FirebaseAuthException catch (e) {
+                        setState(() {
+                          switch (e.code) {
+                            case 'wrong-password':
+                              _errorMessage = 'Wrong password.';
+                              break;
+                            case 'invalid-email':
+                              _errorMessage = 'Invalid email.';
+                              break;
+                            case 'user-not-found':
+                              _errorMessage = 'User not found.';
+                              break;
+                            case 'invalid-credential':
+                              _errorMessage = 'Invalid credentials.';
+                              break;
+                            default:
+                              _errorMessage = 'An error occurred.';
+                          }
+                        });
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: buttonColor,
                       elevation: 0,
@@ -167,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     child: const Text(
-                      'Sign in',
+                      'Login',
                       style: TextStyle(
                         color: primaryColor,
                         fontSize: fontSizeMedium,
@@ -176,39 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: spacingXXLarge),
-
-                // Link Sign up
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have an account ? ",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: fontSizeXSmall,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Sign up',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: fontSizeXSmall,
-                        ),
-                      ),
-                    ),
-                  ],
+                AuthLink(
+                  leftText: "Don't have an account ? ",
+                  rightText: 'Sign up',
+                  onTap: () => Navigator.pushNamed(context, RegisterScreen.routeName),
                 ),
               ],
             ),

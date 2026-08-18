@@ -8,6 +8,7 @@ import '../../widgets/bottom_nav_bar.dart';
 
 class AllEntriesScreen extends StatelessWidget {
   const AllEntriesScreen({super.key});
+  static const String routeName = "/all_entries";
 
   @override
   Widget build(BuildContext context) {
