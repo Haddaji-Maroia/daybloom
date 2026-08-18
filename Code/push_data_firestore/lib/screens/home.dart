@@ -1,17 +1,14 @@
-import 'package:dto/models/my_transaction.dart';
-import 'package:dto/models/team.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:push_data_firestore/data/teams.dart';
-import 'package:push_data_firestore/data/users.dart';
-import 'package:push_data_firestore/data/transactions.dart';
-import 'package:push_data_firestore/styles/spacings.dart';
 import 'package:dto/dto.dart';
+import '../data/database_setup.dart';
+import '../data/hirono_characters.dart';
+import '../data/hirono_series_data.dart';
+import '../data/collections_data.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key, required this.title});
-
   final String title;
 
   @override
@@ -19,177 +16,111 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final List<String> _description = [];
-  late final FirestoreODM odm;
+  late final FirestoreODM<AppSchema> db;
+  final List<String> logs = [];
 
   @override
   void initState() {
     super.initState();
-    odm = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
+    db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
+
+    FirebaseAuth.instance.signInAnonymously().then((userCredential) {
+      print("Logged as: ${userCredential.user?.uid}");
+      setState(() => logs.insert(0, 'Authenticated as: ${userCredential.user?.uid}'));
+    });
+  }
+
+  Future<void> pushCharacters() async {
+    setState(() => logs.insert(0, 'Loading characters...'));
+    try {
+      for (var char in hironoCharacters) {
+        await db.characters.upsert(char);
+        setState(() => logs.insert(0, '✅ OK: ${char.name}'));
+      }
+    } catch (e) {
+      setState(() => logs.insert(0, '❌ ERROR: $e'));
+    }
+  }
+
+  Future<void> pushSeries() async {
+    setState(() => logs.insert(0, 'Loading series...'));
+    try {
+      for (var series in hironoSeriesList) {
+        await db.series.upsert(series);
+        setState(() => logs.insert(0, '✅ OK: ${series.title}'));
+      }
+    } catch (e) {
+      setState(() => logs.insert(0, '❌ ERROR: $e'));
+    }
+  }
+
+  Future<void> pushCollections() async {
+    setState(() => logs.insert(0, 'Loading collections...'));
+    try {
+      for (var col in allCollectionsList) {
+        await db.collections.upsert(col);
+        setState(() => logs.insert(0, '✅ OK: ${(col as dynamic).name}'));
+      }
+    } catch (e) {
+      setState(() => logs.insert(0, '❌ ERROR: $e'));
+      print("Detailed error: $e");
+    }
+  }
+
+  Future<void> pushFullSetup() async {
+    setState(() => logs.insert(0, 'Starting full database setup...'));
+    try {
+      await DatabaseSetup.setupFullDatabase();
+      setState(() => logs.insert(0, '✅ DATABASE READY!'));
+    } catch (e) {
+      setState(() => logs.insert(0, '❌ CRITICAL ERROR: $e'));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      appBar: AppBar(title: Text(widget.title)),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: logs.length,
+        itemBuilder: (context, index) => Text(logs[index]),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
-        child: Center(
-          child: SizedBox(
-            height: 300,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _description.map((e) => Text(e)).toList(),
-              ),
-            ),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton.extended(
+            heroTag: 'char',
+            onPressed: pushCharacters,
+            label: const Text('Characters'),
+            icon: const Icon(Icons.person),
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            FloatingActionButton.extended(
-              onPressed: deleteCollections,
-              label: const Row(
-                children: [
-                  Icon(Icons.delete_forever),
-                  SizedBox(width: kHorizontalPaddingS),
-                  Text("Supprimer les données"),
-                ],
-              ),
-            ),
-            FloatingActionButton.extended(
-              onPressed: () async {
-                await authenticate();
-                await addUsers();
-                await addTeams();
-              },
-              label: const Row(
-                children: [
-                  Icon(Icons.published_with_changes),
-                  SizedBox(width: kHorizontalPaddingS),
-                  Text("Générer les données"),
-                ],
-              ),
-            )
-          ],
-        ),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+            heroTag: 'series',
+            onPressed: pushSeries,
+            label: const Text('Series'),
+            backgroundColor: Colors.orange,
+            icon: const Icon(Icons.layers),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+            heroTag: 'collections',
+            onPressed: pushCollections,
+            label: const Text('Collections'),
+            backgroundColor: Colors.green,
+            icon: const Icon(Icons.folder),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+            heroTag: 'full_setup',
+            onPressed: pushFullSetup,
+            label: const Text('FULL SETUP'),
+            backgroundColor: Colors.black,
+            icon: const Icon(Icons.rocket_launch),
+          ),
+        ],
       ),
     );
-  }
-
-  Future<void> deleteCollections() async {
-    final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
-
-    final users = await db.users.get();
-    for (final user in users) {
-      await db.users(user.id).delete();
-      setState(() {
-        _description.insert(0, "Suppression de l'utilisateur ${user.id}");
-      });
-    }
-
-    final teamsSnapshot = await db.teams.get();
-    for (final team in teamsSnapshot) {
-      final transactions = await db.teams(team.id).transactions.get();
-      for (final transaction in transactions) {
-        final concerns = await db.teams
-            (team.id)
-            .transactions
-            (transaction.id)
-            .concerns
-            .get();
-        for (final concern in concerns) {
-          await db.teams
-              (team.id)
-              .transactions
-              (transaction.id)
-              .concerns
-              (concern.id)
-              .delete();
-          setState(() {
-            _description.insert(
-                0, "Suppression de l'utilisateur concerné ${concern.email}");
-          });
-        }
-        await db.teams(team.id).transactions(transaction.id).delete();
-
-        setState(() {
-          _description.insert(
-              0, "Suppression de la transaction concerné ${transaction.title}");
-        });
-      }
-      await db.teams(team.id).delete();
-
-      setState(() {
-        _description.insert(0, "Suppression de l'équipe ${team.title}");
-      });
-    }
-  }
-
-  Future<void> authenticate() async {
-    for (var user in users) {
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: user.email, password: "123456789");
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'email-already-in-use') {
-          setState(() {
-            _description.insert(0, "L'utilisateur ${user.email} existe déjà");
-          });
-        }
-      }
-    }
-  }
-
-  Future<void> addUsers() async {
-    final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
-
-    for (var user in users) {
-      await db.users.insert(user);
-      setState(() {
-        _description.insert(0, "Ajout de l'utilisateur${user.id}");
-      });
-    }
-  }
-
-  Future<void> addTeams() async {
-    final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
-
-    for (Team team in teams) {
-      await db.teams.insert(team);
-      final insertedTeam = await db.teams(team.id).get();
-
-      setState(() {
-        _description.insert(0, "Ajout de l'équipe ${insertedTeam?.title}");
-      });
-
-      final teamTransactions = db.teams(team.id).transactions;
-
-      for (MyTransaction transaction in transactions) {
-        await teamTransactions.insert(transaction);
-        setState(() {
-          _description.insert(
-              0, "Ajout de la transaction ${transaction.title}");
-        });
-
-        final transactionConcerns =
-            db.teams(team.id).transactions(transaction.id).concerns;
-
-        for (var user in users) {
-          await transactionConcerns.insert(user);
-          setState(() {
-            _description.insert(
-                0, "Ajout de l'utilisateur concerné ${user.email}");
-          });
-        }
-      }
-    }
   }
 }

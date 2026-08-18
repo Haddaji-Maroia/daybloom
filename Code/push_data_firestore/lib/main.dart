@@ -5,6 +5,7 @@ import 'package:push_data_firestore/screens/home.dart';
 import 'package:push_data_firestore/styles/colors.dart';
 import 'package:push_data_firestore/styles/fonts.dart';
 import 'package:push_data_firestore/styles/spacings.dart';
+import 'package:dto/dto.dart';
 
 import 'firebase_options.dart';
 
