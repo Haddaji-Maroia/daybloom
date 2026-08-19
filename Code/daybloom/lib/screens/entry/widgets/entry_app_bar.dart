@@ -1,6 +1,6 @@
 import 'package:daybloom/constants/size.dart';
+import 'package:dto/models/journal_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:dto/dto.dart';
 import '../edit_entry_screen.dart';
 
 class EntryAppBar extends StatelessWidget {

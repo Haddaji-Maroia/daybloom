@@ -1,7 +1,7 @@
+import 'package:dto/dto.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dto/dto.dart' as dto;
 import '../../../constants/colors.dart';
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
@@ -13,9 +13,9 @@ class ProfileBadges extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return const SizedBox();
-    final db = dto.FirestoreODM(dto.appSchema, firestore: FirebaseFirestore.instance);
+    final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
 
-    return StreamBuilder<dto.User?>(
+    return StreamBuilder<AppUser?>(
       stream: db.users(user.uid).stream,
       builder: (context, snapshot) {
         final badges = snapshot.data?.unlockedBadges ?? [];

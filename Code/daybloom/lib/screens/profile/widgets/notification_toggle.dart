@@ -70,7 +70,7 @@ class _NotificationToggleState extends State<NotificationToggle> {
           Switch(
             value: _notificationsEnabled,
             onChanged: _toggleNotif,
-            activeColor: buttonColor,
+            activeThumbColor: buttonColor,
           ),
         ],
       ),

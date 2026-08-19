@@ -1,7 +1,6 @@
 import 'dart:io';
-
+import 'package:dto/models/journal_entry.dart';
 import 'package:flutter/material.dart';
-import 'package:dto/dto.dart';
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
 import '../../../utils/date_formatter.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:dto/dto.dart' as dto;
 import '../../../constants/fonts.dart';
 import '../../../constants/size.dart';
+import 'package:dto/dto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileStats extends StatelessWidget {
   const ProfileStats({super.key});
@@ -12,12 +12,12 @@ class ProfileStats extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return const SizedBox();
-    final db = dto.FirestoreODM(dto.appSchema, firestore: FirebaseFirestore.instance);
+    final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
 
     return Row(
       children: [
         Expanded(
-          child: StreamBuilder<dto.User?>(
+          child: StreamBuilder<AppUser?>(
             stream: db.users(user.uid).stream,
             builder: (context, snapshot) {
               final streak = snapshot.data?.currentStreak ?? 0;
@@ -42,7 +42,7 @@ class ProfileStats extends StatelessWidget {
         ),
         const SizedBox(width: spacingSmall),
         Expanded(
-          child: StreamBuilder<List<dto.JournalEntry>>(
+          child: StreamBuilder<List<JournalEntry>>(
             stream: db.users(user.uid).entries.stream,
             builder: (context, snapshot) {
               final count = snapshot.data?.length ?? 0;
