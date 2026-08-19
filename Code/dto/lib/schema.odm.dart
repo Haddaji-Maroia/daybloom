@@ -24,8 +24,8 @@ class AppSchema extends FirestoreSchema {
 /// Generated schema instance
 const AppSchema _$AppSchema = AppSchema();
 
-/// Generated FilterSelector for `User`
-extension AppSchemaUserFilterSelectorExtension on FilterSelector<User> {
+/// Generated FilterSelector for `AppUser`
+extension AppSchemaAppUserFilterSelectorExtension on FilterSelector<AppUser> {
   /// Filter by document ID (id field)
   @pragma('vm:prefer-inline')
   DocumentIdFieldFilter get id => DocumentIdFieldFilter(
@@ -76,9 +76,9 @@ extension AppSchemaUserFilterSelectorExtension on FilterSelector<User> {
       );
 }
 
-/// Generated OrderByFieldSelector for `User`
-extension AppSchemaUserOrderByFieldSelectorExtension
-    on OrderByFieldSelector<User> {
+/// Generated OrderByFieldSelector for `AppUser`
+extension AppSchemaAppUserOrderByFieldSelectorExtension
+    on OrderByFieldSelector<AppUser> {
   /// Order by document ID (id field)
   OrderByField<String> get id => OrderByField(
         name: 'id',
@@ -129,9 +129,9 @@ extension AppSchemaUserOrderByFieldSelectorExtension
       );
 }
 
-/// Generated AggregateFieldSelector for User
-extension AppSchemaUserAggregateFieldSelectorExtension
-    on AggregateFieldSelector<User> {
+/// Generated AggregateFieldSelector for AppUser
+extension AppSchemaAppUserAggregateFieldSelectorExtension
+    on AggregateFieldSelector<AppUser> {
   /// currentStreak field for aggregation
   AggregateField<int> get currentStreak => AggregateField(
         name: 'currentStreak',
@@ -145,7 +145,7 @@ extension AppSchemaUserAggregateFieldSelectorExtension
       );
 }
 
-extension AppSchemaUserPatchBuilder on PatchBuilder<User> {
+extension AppSchemaAppUserPatchBuilder on PatchBuilder<AppUser> {
   /// Update id field `String`
   @pragma('vm:prefer-inline')
   PatchBuilder<String> get id => PatchBuilder(
@@ -379,10 +379,10 @@ extension AppSchemaJournalEntryPatchBuilder on PatchBuilder<JournalEntry> {
 extension AppSchemaODM on FirestoreODM<AppSchema> {
   /// Access users collection
   @pragma('vm:prefer-inline')
-  FirestoreCollection<AppSchema, User, (_$UsersCollection,)> get users =>
-      FirestoreCollection<AppSchema, User, (_$UsersCollection,)>(
+  FirestoreCollection<AppSchema, AppUser, (_$UsersCollection,)> get users =>
+      FirestoreCollection<AppSchema, AppUser, (_$UsersCollection,)>(
         query: firestore.collection('users'),
-        converter: const _$UserJsonConverter(),
+        converter: const _$AppUserJsonConverter(),
         documentIdField: 'id',
       );
 }
@@ -391,18 +391,18 @@ extension AppSchemaODM on FirestoreODM<AppSchema> {
 extension $AppSchemaTransactionContext on TransactionContext<AppSchema> {
   /// Access users collection
   @pragma('vm:prefer-inline')
-  TransactionCollection<AppSchema, User, (_$UsersCollection,)> get users =>
-      TransactionCollection<AppSchema, User, (_$UsersCollection,)>(
+  TransactionCollection<AppSchema, AppUser, (_$UsersCollection,)> get users =>
+      TransactionCollection<AppSchema, AppUser, (_$UsersCollection,)>(
         query: ref.collection('users'),
         context: this,
-        converter: const _$UserJsonConverter(),
+        converter: const _$AppUserJsonConverter(),
         documentIdField: 'id',
       );
 }
 
 /// Transaction document class for users collection
 extension $AppSchemaUsersTransactionDocument
-    on TransactionDocument<AppSchema, User, (_$UsersCollection,)> {
+    on TransactionDocument<AppSchema, AppUser, (_$UsersCollection,)> {
   /// Access entries subcollection
   @pragma('vm:prefer-inline')
   TransactionCollection<AppSchema, JournalEntry,
@@ -418,7 +418,7 @@ extension $AppSchemaUsersTransactionDocument
 
 /// Document class for users collection
 extension $AppSchemaUsersDocument
-    on FirestoreDocument<AppSchema, User, (_$UsersCollection,)> {
+    on FirestoreDocument<AppSchema, AppUser, (_$UsersCollection,)> {
   /// Access entries subcollection
   FirestoreCollection<AppSchema, JournalEntry,
           (_$UsersCollection, _$EntriesCollection)>
@@ -433,10 +433,10 @@ extension $AppSchemaUsersDocument
 /// Extension to add collections to BatchContext<AppSchema>
 extension AppSchemaBatchContextExtensions on BatchContext<AppSchema> {
   /// Access users collection
-  BatchCollection<AppSchema, User, (_$UsersCollection,)> get users =>
+  BatchCollection<AppSchema, AppUser, (_$UsersCollection,)> get users =>
       BatchCollection(
         collection: firestoreInstance.collection('users'),
-        converter: const _$UserJsonConverter(),
+        converter: const _$AppUserJsonConverter(),
         documentIdField: 'id',
         context: this,
       );
@@ -444,7 +444,7 @@ extension AppSchemaBatchContextExtensions on BatchContext<AppSchema> {
 
 /// Batch document class for users collection
 extension $AppSchemaUsersBatchDocument
-    on BatchDocument<AppSchema, User, (_$UsersCollection,)> {
+    on BatchDocument<AppSchema, AppUser, (_$UsersCollection,)> {
   /// Access entries subcollection
   @pragma('vm:prefer-inline')
   BatchCollection<AppSchema, JournalEntry,
@@ -470,16 +470,16 @@ class _$FirestoreTimestampConverterAnnotationConverter
   Object? toJson(DateTime value) => FirestoreTimestampConverter().toJson(value);
 }
 
-//Generated converter for `User`
-class _$UserJsonConverter
-    implements FirestoreConverter<User, Map<String, dynamic>> {
-  const _$UserJsonConverter();
+//Generated converter for `AppUser`
+class _$AppUserJsonConverter
+    implements FirestoreConverter<AppUser, Map<String, dynamic>> {
+  const _$AppUserJsonConverter();
 
   @override
-  User fromJson(Map<String, dynamic> data) => User.fromJson(data);
+  AppUser fromJson(Map<String, dynamic> data) => AppUser.fromJson(data);
 
   @override
-  Map<String, dynamic> toJson(User value) => value.toJson();
+  Map<String, dynamic> toJson(AppUser value) => value.toJson();
 }
 
 //Generated converter for `JournalEntry`
