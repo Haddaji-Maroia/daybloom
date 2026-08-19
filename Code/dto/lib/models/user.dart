@@ -5,8 +5,8 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-abstract class User with _$User {
-  const factory User({
+abstract class AppUser with _$AppUser {
+  const factory AppUser({
     @DocumentIdField() required String id,
     required String firstName,
     required String lastName,
@@ -15,7 +15,7 @@ abstract class User with _$User {
     @Default(0) int longestStreak,
     DateTime? lastEntryDate,
     @Default([]) List<String> unlockedBadges,
-  }) = _User;
+  }) = _AppUser;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
 }

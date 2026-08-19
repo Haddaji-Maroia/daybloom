@@ -13,7 +13,7 @@ part of 'user.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$User {
+mixin _$AppUser {
   @DocumentIdField()
   String get id;
   String get firstName;
@@ -24,21 +24,21 @@ mixin _$User {
   DateTime? get lastEntryDate;
   List<String> get unlockedBadges;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $UserCopyWith<User> get copyWith =>
-      _$UserCopyWithImpl<User>(this as User, _$identity);
+  $AppUserCopyWith<AppUser> get copyWith =>
+      _$AppUserCopyWithImpl<AppUser>(this as AppUser, _$identity);
 
-  /// Serializes this User to a JSON map.
+  /// Serializes this AppUser to a JSON map.
   Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is User &&
+            other is AppUser &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
@@ -70,14 +70,14 @@ mixin _$User {
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
   }
 }
 
 /// @nodoc
-abstract mixin class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) _then) =
-      _$UserCopyWithImpl;
+abstract mixin class $AppUserCopyWith<$Res> {
+  factory $AppUserCopyWith(AppUser value, $Res Function(AppUser) _then) =
+      _$AppUserCopyWithImpl;
   @useResult
   $Res call(
       {@DocumentIdField() String id,
@@ -91,13 +91,13 @@ abstract mixin class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._self, this._then);
+class _$AppUserCopyWithImpl<$Res> implements $AppUserCopyWith<$Res> {
+  _$AppUserCopyWithImpl(this._self, this._then);
 
-  final User _self;
-  final $Res Function(User) _then;
+  final AppUser _self;
+  final $Res Function(AppUser) _then;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -148,8 +148,8 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   }
 }
 
-/// Adds pattern-matching-related methods to [User].
-extension UserPatterns on User {
+/// Adds pattern-matching-related methods to [AppUser].
+extension AppUserPatterns on AppUser {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -164,12 +164,12 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_User value)? $default, {
+    TResult Function(_AppUser value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _User() when $default != null:
+      case _AppUser() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -191,11 +191,11 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_User value) $default,
+    TResult Function(_AppUser value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _User():
+      case _AppUser():
         return $default(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -216,11 +216,11 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_User value)? $default,
+    TResult? Function(_AppUser value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _User() when $default != null:
+      case _AppUser() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -255,7 +255,7 @@ extension UserPatterns on User {
   }) {
     final _that = this;
     switch (_that) {
-      case _User() when $default != null:
+      case _AppUser() when $default != null:
         return $default(
             _that.id,
             _that.firstName,
@@ -298,7 +298,7 @@ extension UserPatterns on User {
   ) {
     final _that = this;
     switch (_that) {
-      case _User():
+      case _AppUser():
         return $default(
             _that.id,
             _that.firstName,
@@ -340,7 +340,7 @@ extension UserPatterns on User {
   ) {
     final _that = this;
     switch (_that) {
-      case _User() when $default != null:
+      case _AppUser() when $default != null:
         return $default(
             _that.id,
             _that.firstName,
@@ -358,8 +358,8 @@ extension UserPatterns on User {
 
 /// @nodoc
 @JsonSerializable()
-class _User implements User {
-  const _User(
+class _AppUser implements AppUser {
+  const _AppUser(
       {@DocumentIdField() required this.id,
       required this.firstName,
       required this.lastName,
@@ -369,7 +369,8 @@ class _User implements User {
       this.lastEntryDate,
       final List<String> unlockedBadges = const []})
       : _unlockedBadges = unlockedBadges;
-  factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory _AppUser.fromJson(Map<String, dynamic> json) =>
+      _$AppUserFromJson(json);
 
   @override
   @DocumentIdField()
@@ -397,17 +398,17 @@ class _User implements User {
     return EqualUnmodifiableListView(_unlockedBadges);
   }
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$UserCopyWith<_User> get copyWith =>
-      __$UserCopyWithImpl<_User>(this, _$identity);
+  _$AppUserCopyWith<_AppUser> get copyWith =>
+      __$AppUserCopyWithImpl<_AppUser>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$UserToJson(
+    return _$AppUserToJson(
       this,
     );
   }
@@ -416,7 +417,7 @@ class _User implements User {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _User &&
+            other is _AppUser &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
@@ -448,14 +449,14 @@ class _User implements User {
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
+    return 'AppUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$UserCopyWith(_User value, $Res Function(_User) _then) =
-      __$UserCopyWithImpl;
+abstract mixin class _$AppUserCopyWith<$Res> implements $AppUserCopyWith<$Res> {
+  factory _$AppUserCopyWith(_AppUser value, $Res Function(_AppUser) _then) =
+      __$AppUserCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -470,13 +471,13 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserCopyWithImpl<$Res> implements _$UserCopyWith<$Res> {
-  __$UserCopyWithImpl(this._self, this._then);
+class __$AppUserCopyWithImpl<$Res> implements _$AppUserCopyWith<$Res> {
+  __$AppUserCopyWithImpl(this._self, this._then);
 
-  final _User _self;
-  final $Res Function(_User) _then;
+  final _AppUser _self;
+  final $Res Function(_AppUser) _then;
 
-  /// Create a copy of User
+  /// Create a copy of AppUser
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -490,7 +491,7 @@ class __$UserCopyWithImpl<$Res> implements _$UserCopyWith<$Res> {
     Object? lastEntryDate = freezed,
     Object? unlockedBadges = null,
   }) {
-    return _then(_User(
+    return _then(_AppUser(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable

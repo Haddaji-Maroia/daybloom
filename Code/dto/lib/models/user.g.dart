@@ -6,7 +6,7 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_User _$UserFromJson(Map<String, dynamic> json) => _User(
+_AppUser _$AppUserFromJson(Map<String, dynamic> json) => _AppUser(
       id: json['id'] as String,
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
@@ -22,7 +22,7 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
           const [],
     );
 
-const _$UserFieldMap = <String, String>{
+const _$AppUserFieldMap = <String, String>{
   'id': 'id',
   'firstName': 'firstName',
   'lastName': 'lastName',
@@ -34,7 +34,7 @@ const _$UserFieldMap = <String, String>{
 };
 
 // ignore: unused_element
-abstract class _$UserPerFieldToJson {
+abstract class _$AppUserPerFieldToJson {
   // ignore: unused_element
   static Object? id(String instance) => instance;
   // ignore: unused_element
@@ -54,7 +54,7 @@ abstract class _$UserPerFieldToJson {
   static Object? unlockedBadges(List<String> instance) => instance;
 }
 
-Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
+Map<String, dynamic> _$AppUserToJson(_AppUser instance) => <String, dynamic>{
       'id': instance.id,
       'firstName': instance.firstName,
       'lastName': instance.lastName,
