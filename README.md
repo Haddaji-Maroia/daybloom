@@ -36,15 +36,15 @@ journée, suivre leurs émotions et garder leurs souvenirs au même endroit.
 
 | Fonctionnalité | Statut |
 |---|---|
-| Onboarding | 🔲 En cours |
-| Login / Inscription | 🔲 En cours |
+| Onboarding | ✅ Terminé  |
+| Login / Inscription | ✅ Terminé  |
 | Écran d'accueil | ✅ Terminé |
-| Écrire une entrée | 🔲 En cours |
-| Détail d'une entrée | 🔲 En cours |
-| Toutes les entrées | 🔲 En cours |
-| Notification quotidienne | 🔲 En cours |
+| Écrire une entrée | ✅ Terminé |
+| Détail d'une entrée | ✅ Terminé  |
+| Toutes les entrées | ✅ Terminé  |
+| Notification quotidienne | ✅ Terminé  |
 | Streak & badges | 🔲 En cours |
-| Écran profil | 🔲 En cours |
+| Écran profil | ✅ Terminé  |
 
 ---
 
