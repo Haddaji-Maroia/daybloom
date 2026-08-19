@@ -24,6 +24,14 @@ class EntriesList extends StatelessWidget {
             child: CircularProgressIndicator(color: Colors.white),
           );
         }
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text(
+              'Something went wrong. Please try again.',
+              style: TextStyle(color: Colors.white70),
+            ),
+          );
+        }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(
             child: Text(

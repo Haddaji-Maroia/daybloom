@@ -37,6 +37,14 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                 child: CircularProgressIndicator(color: Colors.white),
               );
             }
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text(
+                  'Something went wrong.',
+                  style: TextStyle(color: Colors.white70),
+                ),
+              );
+            }
             final entry = snapshot.data!;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -20,6 +20,7 @@ class HomeHeader extends StatelessWidget {
       stream: db.users(user.uid).stream,
       builder: (context, snapshot) {
         final streak = snapshot.data?.currentStreak ?? 0;
+        if (snapshot.hasError) return const SizedBox();
         return Container(
           width: double.infinity,
           color: primaryColor,
