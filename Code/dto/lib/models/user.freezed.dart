@@ -19,6 +19,10 @@ mixin _$User {
   String get firstName;
   String get lastName;
   String get email;
+  int get currentStreak;
+  int get longestStreak;
+  DateTime? get lastEntryDate;
+  List<String> get unlockedBadges;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -40,16 +44,33 @@ mixin _$User {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.currentStreak, currentStreak) ||
+                other.currentStreak == currentStreak) &&
+            (identical(other.longestStreak, longestStreak) ||
+                other.longestStreak == longestStreak) &&
+            (identical(other.lastEntryDate, lastEntryDate) ||
+                other.lastEntryDate == lastEntryDate) &&
+            const DeepCollectionEquality()
+                .equals(other.unlockedBadges, unlockedBadges));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstName, lastName, email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      firstName,
+      lastName,
+      email,
+      currentStreak,
+      longestStreak,
+      lastEntryDate,
+      const DeepCollectionEquality().hash(unlockedBadges));
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
   }
 }
 
@@ -62,7 +83,11 @@ abstract mixin class $UserCopyWith<$Res> {
       {@DocumentIdField() String id,
       String firstName,
       String lastName,
-      String email});
+      String email,
+      int currentStreak,
+      int longestStreak,
+      DateTime? lastEntryDate,
+      List<String> unlockedBadges});
 }
 
 /// @nodoc
@@ -81,6 +106,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
+    Object? currentStreak = null,
+    Object? longestStreak = null,
+    Object? lastEntryDate = freezed,
+    Object? unlockedBadges = null,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -99,6 +128,22 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      currentStreak: null == currentStreak
+          ? _self.currentStreak
+          : currentStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      longestStreak: null == longestStreak
+          ? _self.longestStreak
+          : longestStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastEntryDate: freezed == lastEntryDate
+          ? _self.lastEntryDate
+          : lastEntryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      unlockedBadges: null == unlockedBadges
+          ? _self.unlockedBadges
+          : unlockedBadges // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -196,15 +241,30 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(@DocumentIdField() String id, String firstName,
-            String lastName, String email)?
+    TResult Function(
+            @DocumentIdField() String id,
+            String firstName,
+            String lastName,
+            String email,
+            int currentStreak,
+            int longestStreak,
+            DateTime? lastEntryDate,
+            List<String> unlockedBadges)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _User() when $default != null:
-        return $default(_that.id, _that.firstName, _that.lastName, _that.email);
+        return $default(
+            _that.id,
+            _that.firstName,
+            _that.lastName,
+            _that.email,
+            _that.currentStreak,
+            _that.longestStreak,
+            _that.lastEntryDate,
+            _that.unlockedBadges);
       case _:
         return orElse();
     }
@@ -225,14 +285,29 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(@DocumentIdField() String id, String firstName,
-            String lastName, String email)
+    TResult Function(
+            @DocumentIdField() String id,
+            String firstName,
+            String lastName,
+            String email,
+            int currentStreak,
+            int longestStreak,
+            DateTime? lastEntryDate,
+            List<String> unlockedBadges)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _User():
-        return $default(_that.id, _that.firstName, _that.lastName, _that.email);
+        return $default(
+            _that.id,
+            _that.firstName,
+            _that.lastName,
+            _that.email,
+            _that.currentStreak,
+            _that.longestStreak,
+            _that.lastEntryDate,
+            _that.unlockedBadges);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -252,14 +327,29 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(@DocumentIdField() String id, String firstName,
-            String lastName, String email)?
+    TResult? Function(
+            @DocumentIdField() String id,
+            String firstName,
+            String lastName,
+            String email,
+            int currentStreak,
+            int longestStreak,
+            DateTime? lastEntryDate,
+            List<String> unlockedBadges)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _User() when $default != null:
-        return $default(_that.id, _that.firstName, _that.lastName, _that.email);
+        return $default(
+            _that.id,
+            _that.firstName,
+            _that.lastName,
+            _that.email,
+            _that.currentStreak,
+            _that.longestStreak,
+            _that.lastEntryDate,
+            _that.unlockedBadges);
       case _:
         return null;
     }
@@ -273,7 +363,12 @@ class _User implements User {
       {@DocumentIdField() required this.id,
       required this.firstName,
       required this.lastName,
-      required this.email});
+      required this.email,
+      this.currentStreak = 0,
+      this.longestStreak = 0,
+      this.lastEntryDate,
+      final List<String> unlockedBadges = const []})
+      : _unlockedBadges = unlockedBadges;
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   @override
@@ -285,6 +380,22 @@ class _User implements User {
   final String lastName;
   @override
   final String email;
+  @override
+  @JsonKey()
+  final int currentStreak;
+  @override
+  @JsonKey()
+  final int longestStreak;
+  @override
+  final DateTime? lastEntryDate;
+  final List<String> _unlockedBadges;
+  @override
+  @JsonKey()
+  List<String> get unlockedBadges {
+    if (_unlockedBadges is EqualUnmodifiableListView) return _unlockedBadges;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unlockedBadges);
+  }
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -311,16 +422,33 @@ class _User implements User {
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
                 other.lastName == lastName) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.currentStreak, currentStreak) ||
+                other.currentStreak == currentStreak) &&
+            (identical(other.longestStreak, longestStreak) ||
+                other.longestStreak == longestStreak) &&
+            (identical(other.lastEntryDate, lastEntryDate) ||
+                other.lastEntryDate == lastEntryDate) &&
+            const DeepCollectionEquality()
+                .equals(other._unlockedBadges, _unlockedBadges));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, firstName, lastName, email);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      firstName,
+      lastName,
+      email,
+      currentStreak,
+      longestStreak,
+      lastEntryDate,
+      const DeepCollectionEquality().hash(_unlockedBadges));
 
   @override
   String toString() {
-    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email)';
+    return 'User(id: $id, firstName: $firstName, lastName: $lastName, email: $email, currentStreak: $currentStreak, longestStreak: $longestStreak, lastEntryDate: $lastEntryDate, unlockedBadges: $unlockedBadges)';
   }
 }
 
@@ -334,7 +462,11 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       {@DocumentIdField() String id,
       String firstName,
       String lastName,
-      String email});
+      String email,
+      int currentStreak,
+      int longestStreak,
+      DateTime? lastEntryDate,
+      List<String> unlockedBadges});
 }
 
 /// @nodoc
@@ -353,6 +485,10 @@ class __$UserCopyWithImpl<$Res> implements _$UserCopyWith<$Res> {
     Object? firstName = null,
     Object? lastName = null,
     Object? email = null,
+    Object? currentStreak = null,
+    Object? longestStreak = null,
+    Object? lastEntryDate = freezed,
+    Object? unlockedBadges = null,
   }) {
     return _then(_User(
       id: null == id
@@ -371,6 +507,22 @@ class __$UserCopyWithImpl<$Res> implements _$UserCopyWith<$Res> {
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
+      currentStreak: null == currentStreak
+          ? _self.currentStreak
+          : currentStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      longestStreak: null == longestStreak
+          ? _self.longestStreak
+          : longestStreak // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastEntryDate: freezed == lastEntryDate
+          ? _self.lastEntryDate
+          : lastEntryDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      unlockedBadges: null == unlockedBadges
+          ? _self._unlockedBadges
+          : unlockedBadges // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }

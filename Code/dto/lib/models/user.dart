@@ -11,6 +11,10 @@ abstract class User with _$User {
     required String firstName,
     required String lastName,
     required String email,
+    @Default(0) int currentStreak,
+    @Default(0) int longestStreak,
+    DateTime? lastEntryDate,
+    @Default([]) List<String> unlockedBadges,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

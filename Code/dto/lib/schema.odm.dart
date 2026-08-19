@@ -50,6 +50,30 @@ extension AppSchemaUserFilterSelectorExtension on FilterSelector<User> {
         name: 'email',
         parent: this,
       );
+
+  /// Filter by currentStreak
+  NumericFieldFilter get currentStreak => NumericFieldFilter(
+        name: 'currentStreak',
+        parent: this,
+      );
+
+  /// Filter by longestStreak
+  NumericFieldFilter get longestStreak => NumericFieldFilter(
+        name: 'longestStreak',
+        parent: this,
+      );
+
+  /// Filter by lastEntryDate
+  DateTimeFieldFilter get lastEntryDate => DateTimeFieldFilter(
+        name: 'lastEntryDate',
+        parent: this,
+      );
+
+  /// Filter by unlockedBadges
+  ArrayFieldFilter get unlockedBadges => ArrayFieldFilter(
+        name: 'unlockedBadges',
+        parent: this,
+      );
 }
 
 /// Generated OrderByFieldSelector for `User`
@@ -79,11 +103,47 @@ extension AppSchemaUserOrderByFieldSelectorExtension
         name: 'email',
         parent: this,
       );
+
+  /// Order by currentStreak
+  OrderByField<int> get currentStreak => OrderByField(
+        name: 'currentStreak',
+        parent: this,
+      );
+
+  /// Order by longestStreak
+  OrderByField<int> get longestStreak => OrderByField(
+        name: 'longestStreak',
+        parent: this,
+      );
+
+  /// Order by lastEntryDate
+  OrderByField<DateTime?> get lastEntryDate => OrderByField(
+        name: 'lastEntryDate',
+        parent: this,
+      );
+
+  /// Order by unlockedBadges
+  OrderByField<List<String>> get unlockedBadges => OrderByField(
+        name: 'unlockedBadges',
+        parent: this,
+      );
 }
 
 /// Generated AggregateFieldSelector for User
 extension AppSchemaUserAggregateFieldSelectorExtension
-    on AggregateFieldSelector<User> {}
+    on AggregateFieldSelector<User> {
+  /// currentStreak field for aggregation
+  AggregateField<int> get currentStreak => AggregateField(
+        name: 'currentStreak',
+        parent: this,
+      );
+
+  /// longestStreak field for aggregation
+  AggregateField<int> get longestStreak => AggregateField(
+        name: 'longestStreak',
+        parent: this,
+      );
+}
 
 extension AppSchemaUserPatchBuilder on PatchBuilder<User> {
   /// Update id field `String`
@@ -117,7 +177,46 @@ extension AppSchemaUserPatchBuilder on PatchBuilder<User> {
         parent: this,
         converter: const PrimitiveConverter(),
       );
+
+  /// Update currentStreak field `int`
+  @pragma('vm:prefer-inline')
+  NumericFieldUpdate<int> get currentStreak => NumericFieldUpdate(
+        name: 'currentStreak',
+        parent: this,
+        converter: const PrimitiveConverter(),
+      );
+
+  /// Update longestStreak field `int`
+  @pragma('vm:prefer-inline')
+  NumericFieldUpdate<int> get longestStreak => NumericFieldUpdate(
+        name: 'longestStreak',
+        parent: this,
+        converter: const PrimitiveConverter(),
+      );
+
+  /// Update lastEntryDate field `DateTime?`
+  @pragma('vm:prefer-inline')
+  DateTimeFieldUpdate<DateTime?> get lastEntryDate => DateTimeFieldUpdate(
+        name: 'lastEntryDate',
+        parent: this,
+      );
+
+  /// Update unlockedBadges field `List<String>`
+  @pragma('vm:prefer-inline')
+  ListFieldUpdate<List<String>, String> get unlockedBadges => ListFieldUpdate(
+        name: 'unlockedBadges',
+        parent: this,
+        converter: /* {} */ ListConverter<String>(const PrimitiveConverter()),
+        elementConverter: const PrimitiveConverter(),
+      );
 }
+
+/// Generated FilterSelector for `List<E>`
+extension AppSchemaListFilterSelectorExtension<E> on FilterSelector<List<E>> {}
+
+/// Generated OrderByFieldSelector for `List<E>`
+extension AppSchemaListOrderByFieldSelectorExtension<E>
+    on OrderByFieldSelector<List<E>> {}
 
 /// Generated FilterSelector for `JournalEntry`
 extension AppSchemaJournalEntryFilterSelectorExtension
@@ -275,13 +374,6 @@ extension AppSchemaJournalEntryPatchBuilder on PatchBuilder<JournalEntry> {
         parent: this,
       );
 }
-
-/// Generated FilterSelector for `List<E>`
-extension AppSchemaListFilterSelectorExtension<E> on FilterSelector<List<E>> {}
-
-/// Generated OrderByFieldSelector for `List<E>`
-extension AppSchemaListOrderByFieldSelectorExtension<E>
-    on OrderByFieldSelector<List<E>> {}
 
 /// Class to add collections to `FirestoreODM<AppSchema>`
 extension AppSchemaODM on FirestoreODM<AppSchema> {

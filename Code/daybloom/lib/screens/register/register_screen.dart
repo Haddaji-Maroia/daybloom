@@ -8,6 +8,8 @@ import '../../widgets/form/name_input.dart';
 import '../../widgets/form/email_input.dart';
 import '../../widgets/form/password_input.dart';
 import '../../widgets/form/auth_link.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dto/dto.dart' as dto;
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -70,6 +72,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           password: _passwordController.text,
                         );
                         await result.user?.updateDisplayName(_nameController.text);
+                        final db = dto.FirestoreODM(dto.appSchema, firestore: FirebaseFirestore.instance);
+                        await db.users.insert(
+                          dto.User(
+                            id: result.user!.uid,
+                            firstName: _nameController.text,
+                            lastName: '',
+                            email: _emailController.text,
+                            currentStreak: 0,
+                            longestStreak: 0,
+                          ),
+                        );
                         if (!context.mounted) return;
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       } on FirebaseAuthException catch (e) {

@@ -7,6 +7,7 @@ import 'package:dto/dto.dart';
 import '../../constants/colors.dart';
 import '../../constants/fonts.dart';
 import '../../constants/size.dart';
+import '../../services/streak_service.dart';
 import 'widgets/entry_form_header.dart';
 
 class AddEntryScreen extends StatefulWidget {
@@ -46,6 +47,8 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
         createdAt: DateTime.now(),
       ),
     );
+
+    await StreakService().updateStreak(hasPhoto: _pickedImage != null);
 
     setState(() => _isSaving = false);
     if (mounted) Navigator.pop(context);
