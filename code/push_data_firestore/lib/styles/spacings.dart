@@ -17,5 +17,3 @@ const kLogoSize = 33.0;
 const kProfileSize = 108.0;
 const kProfileSizeSmall = kProfileSize * .8;
 const kLogoRatio = .16;
-
-const kBodyHeight = 500.0;

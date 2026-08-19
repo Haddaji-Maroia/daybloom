@@ -3,6 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:push_data_firestore/screens/home.dart';
 import 'package:push_data_firestore/styles/colors.dart';
+import 'package:push_data_firestore/styles/fonts.dart';
+import 'package:push_data_firestore/styles/spacings.dart';
+import 'package:dto/dto.dart';
+
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -17,15 +21,41 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Daybloom Data',
+      title: 'Flutter Demo',
       theme: ThemeData(
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: kMainColor,
           foregroundColor: kBackgroundColor,
         ),
+        colorScheme: const ColorScheme(
+          primary: kMainColor,
+          secondary: kSecondaryColor,
+          surface: kBackgroundColor,
+          error: kErrorColor,
+          onPrimary: kBackgroundColor,
+          onSecondary: kBackgroundColor,
+          onSurface: kMainColor,
+          onError: kMainColor,
+          brightness: Brightness.dark,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(kMainColor),
+            foregroundColor: WidgetStateProperty.all(kBackgroundColor),
+            textStyle: WidgetStateProperty.all(kButtonStyle),
+            padding: WidgetStateProperty.all(
+              const EdgeInsets.symmetric(
+                horizontal: kHorizontalPadding,
+                vertical: kVerticalPaddingS,
+              ),
+            ),
+          ),
+        ),
+        useMaterial3: true,
       ),
       home: const Home(title: 'Initialiser les données'),
     );
