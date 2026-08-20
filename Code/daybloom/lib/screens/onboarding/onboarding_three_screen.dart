@@ -20,8 +20,8 @@ class OnboardingThreeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               Image.asset(
-                'assets/images/onboarding3.png',
-                height: 250,
+                'assets/images/onboarding33.png',
+                height: 300,
               ),
               const Spacer(),
               const Text(

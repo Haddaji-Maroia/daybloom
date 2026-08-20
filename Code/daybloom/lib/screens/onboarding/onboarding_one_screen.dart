@@ -19,7 +19,7 @@ class OnboardingOneScreen extends StatelessWidget {
             children: [
               const Spacer(),
               Image.asset(
-                'assets/images/onboarding1.png',
+                'assets/images/onboarding11.png',
                 height: 250,
               ),
               const Spacer(),

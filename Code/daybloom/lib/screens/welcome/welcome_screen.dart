@@ -21,8 +21,8 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               Image.asset(
-                'assets/images/onboarding1.png',
-                height: 250,
+                'assets/images/welcome.png',
+                height: 300,
               ),
               const Spacer(),
               const Text(
