@@ -19,7 +19,6 @@ class ProfileBadges extends StatelessWidget {
       stream: db.users(user.uid).stream,
       builder: (context, snapshot) {
         final badges = snapshot.data?.unlockedBadges ?? [];
-        if (badges.isEmpty) return const SizedBox();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,34 +31,43 @@ class ProfileBadges extends StatelessWidget {
               ),
             ),
             const SizedBox(height: spacingSmall),
-            Wrap(
-              spacing: spacingSmall,
-              runSpacing: spacingSmall,
-              children: badges.map((badge) {
-                String label = badge;
-                if (badge == 'first_bloom') label = 'First Bloom';
-                if (badge == 'week_streak') label = 'Week Streak';
-                if (badge == 'photographer') label = 'Photographer';
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: paddingSmall,
-                    vertical: paddingSmall,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white12,
-                    borderRadius: BorderRadius.circular(borderRadius),
-                    border: Border.all(color: buttonColor),
-                  ),
-                  child: Text(
-                    label,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: fontSizeSmall,
+            if (badges.isEmpty)
+              const Text(
+                'Write your first entry to unlock badges!',
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: fontSizeSmall,
+                ),
+              )
+            else
+              Wrap(
+                spacing: spacingSmall,
+                runSpacing: spacingSmall,
+                children: badges.map((badge) {
+                  String label = badge;
+                  if (badge == 'first_bloom') label = 'First Bloom';
+                  if (badge == 'week_streak') label = 'Week Streak';
+                  if (badge == 'photographer') label = 'Photographer';
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: paddingSmall,
+                      vertical: paddingSmall,
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
+                    decoration: BoxDecoration(
+                      color: Colors.white12,
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      border: Border.all(color: buttonColor),
+                    ),
+                    child: Text(
+                      label,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: fontSizeSmall,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
           ],
         );
       },
