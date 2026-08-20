@@ -109,9 +109,14 @@ class _HomeState extends State<Home> {
   Future<void> addUsers() async {
     final db = FirestoreODM(appSchema, firestore: FirebaseFirestore.instance);
     for (final user in users) {
-      await db.users.insert(user);
+      final authUser = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: user.email,
+        password: "123456789",
+      );
+      final uid = authUser.user!.uid;
+      await db.users.insert(user.copyWith(id: uid));
       setState(() {
-        _description.insert(0, "Added user ${user.email}");
+        _description.insert(0, "Ajout de l'utilisateur ${user.email}");
       });
     }
   }
