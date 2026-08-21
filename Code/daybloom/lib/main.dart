@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'constants/colors.dart';
 
+// Daybloom - Remise examen août 2026
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
