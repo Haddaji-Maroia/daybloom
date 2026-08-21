@@ -41,6 +41,7 @@ class EntriesList extends StatelessWidget {
           );
         }
         final entries = snapshot.data!;
+        entries.sort((a, b) => b.createdAt.compareTo(a.createdAt));
         final count = maxItems != null && entries.length > maxItems!
             ? maxItems!
             : entries.length;
