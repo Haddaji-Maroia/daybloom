@@ -39,7 +39,31 @@ class EntryAppBar extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.delete, color: Colors.white),
-                onPressed: onDelete,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Delete entry'),
+                      content: const Text('Are you sure you want to delete this entry?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            onDelete();
+                          },
+                          child: const Text(
+                            'Delete',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
